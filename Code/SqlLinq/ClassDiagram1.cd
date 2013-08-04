@@ -1,0 +1,699 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SqlLinq.SyntaxTree.AggregateFunctionsFactory" Collapsed="true">
+    <Position X="111.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\AggregateFunctions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.AggregateFunctions&lt;TSource, TResult&gt;" Collapsed="true">
+    <Position X="4" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAQAAAAAAAAAAAAAgAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\AggregateFunctions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.AggregateIntoExpando&lt;TSource, TResult&gt;" Collapsed="true">
+    <Position X="0.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\AggregateFunctions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.AggregateIntoDictionary&lt;TSource, TResult&gt;" Collapsed="true">
+    <Position X="3" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\AggregateFunctions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.AggregateIntoObjectMembers&lt;TSource, TResult&gt;" Collapsed="true">
+    <Position X="5.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\AggregateFunctions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.AggregateIntoObjectConstructor&lt;TSource, TResult&gt;" Collapsed="true">
+    <Position X="7.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\AggregateFunctions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SqlException" Collapsed="true">
+    <Position X="111.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.ExpressionFactory" Collapsed="true">
+    <Position X="115" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAJICAAAAAAAAACAAAAAEAAAgEAAEAAAAAAAIAAAAA=</HashCode>
+      <FileName>SyntaxTree\ExpressionFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.Filter&lt;T&gt;" Collapsed="true">
+    <Position X="116.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAgCAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Filter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Clauses.GroupByCallFactory" Collapsed="true">
+    <Position X="118.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Clauses\GroupByCall.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Clauses.GroupByCall&lt;TSource, TResult&gt;" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>SyntaxTree\Clauses\GroupByCall.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Clauses.GroupByIntoDictionary&lt;TSource, TResult&gt;" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Clauses\GroupByCall.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Clauses.GroupByExpando&lt;TSource, TResult&gt;" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Clauses\GroupByCall.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Clauses.GroupByConstructor&lt;TSource, TResult&gt;" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Clauses\GroupByCall.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Clauses.GroupByMemberInit&lt;TSource, TResult&gt;" Collapsed="true">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Clauses\GroupByCall.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.JoinQuery&lt;TSource, TInner, TResult&gt;" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QABAAAAAAAAAAAAAAAAAAgAQAAAEAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>JoinQuery.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.LinqExtensions" Collapsed="true">
+    <Position X="115" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LinqExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.ParserFactory" Collapsed="true">
+    <Position X="118.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAABAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>ParserFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.Query&lt;TSource, TResult&gt;" Collapsed="true">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAgAAAAAEAAAAAAAAQAAAAEA=</HashCode>
+      <FileName>Query.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.QueryBase&lt;TSource, TResult&gt;" Collapsed="true">
+    <Position X="1.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAkQAAAAAAAAAAEAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>QueryBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SqlLinq" Collapsed="true">
+    <Position X="113.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAABAAAAAA=</HashCode>
+      <FileName>SqlLinq.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SqlParser" Collapsed="true">
+    <Position X="115" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAgAAAMAAQAAAAAAAABAAAAACAAAAA=</HashCode>
+      <FileName>SqlParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxNodeAttribute" Collapsed="true">
+    <Position X="116.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxNodeAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxRuleFactory" Collapsed="true">
+    <Position X="118.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAABAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxRuleFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.TypeExtensions" Collapsed="true">
+    <Position X="111.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAIACAAAAAEgAAAAAAAAAAAAABEAEAAAAAAA=</HashCode>
+      <FileName>TypeExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.TypeHelper" Collapsed="true">
+    <Position X="113.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TypeHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Aggregates.AggregateNode" Collapsed="true">
+    <Position X="85.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAgAIQAAAAAAAQAAQAAAEAAAAAEAAAAAAEAAA=</HashCode>
+      <FileName>SyntaxTree\Aggregates\AggregateNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Aggregates.AverageNode" Collapsed="true">
+    <Position X="88.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Aggregates\AverageNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Aggregates.CountAllNode" Collapsed="true">
+    <Position X="75.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Aggregates\CountAllNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Aggregates.CountDistinctNode" Collapsed="true">
+    <Position X="77.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Aggregates\CountDistinctNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Aggregates.CountNode" Collapsed="true">
+    <Position X="77.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Aggregates\CountNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Aggregates.CountStarNode" Collapsed="true">
+    <Position X="79.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>SyntaxTree\Aggregates\CountStarNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Aggregates.MaxNode" Collapsed="true">
+    <Position X="82" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Aggregates\MaxNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Aggregates.MinNode" Collapsed="true">
+    <Position X="84.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Aggregates\MinNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Aggregates.StandardDeviationNode" Collapsed="true">
+    <Position X="93.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Aggregates\StandardDeviationNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Aggregates.StandardDeviationPNode" Collapsed="true">
+    <Position X="95.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Aggregates\StandardDeviationPNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Aggregates.SumNode" Collapsed="true">
+    <Position X="86.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Aggregates\SumNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Aggregates.VarianceNode" Collapsed="true">
+    <Position X="93.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Aggregates\VarianceNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Aggregates.VariancePNode" Collapsed="true">
+    <Position X="91" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Aggregates\VariancePNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Arithmetic.DivideNode" Collapsed="true">
+    <Position X="23.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Arithmetic\DivideNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Arithmetic.MinusNode" Collapsed="true">
+    <Position X="25.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Arithmetic\MinusNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Arithmetic.MultiplyNode" Collapsed="true">
+    <Position X="30.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Arithmetic\MultiplyNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Arithmetic.NegateNode" Collapsed="true">
+    <Position X="14.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Arithmetic\NegateNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Arithmetic.PlusNode" Collapsed="true">
+    <Position X="39.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Arithmetic\PlusNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.BinaryExpressionNode" Collapsed="true">
+    <Position X="36" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\BinaryExpressionNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Columns" Collapsed="true">
+    <Position X="73" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAQAAAAAAAAACAICAAAAAAAAAAAAAgABAAAAAAiAAAA=</HashCode>
+      <FileName>SyntaxTree\Columns.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.ColumnSource" Collapsed="true">
+    <Position X="85.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAgAIAAAAAAAAAAAAAAAAAAAQAAAAAAAAEAAA=</HashCode>
+      <FileName>SyntaxTree\ColumnSource.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.ColumnsStar" Collapsed="true">
+    <Position X="73" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\ColumnsStar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.ExpressionNode" Collapsed="true">
+    <Position X="34.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABCIAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\ExpressionNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Identifier" Collapsed="true">
+    <Position X="111.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAABAAECAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Identifier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.NodeWithId" Collapsed="true">
+    <Position X="7.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAABAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\NodeWithId.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.NonTerminalNode" Collapsed="true">
+    <Position X="56.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACCAIAAAAEQgAAAEAAAMAAAAAAAAAAIAAAAAAAEAAgA=</HashCode>
+      <FileName>SyntaxTree\NonTerminalNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.SelectNode" Collapsed="true">
+    <Position X="68.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAACIAAAAAAAAAAIAAAAAAAAAAAAAAAIAAAAgAAAg=</HashCode>
+      <FileName>SyntaxTree\SelectNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.SyntaxNode" Collapsed="true">
+    <Position X="57.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAIAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\SyntaxNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.TerminalNode" Collapsed="true">
+    <Position X="109" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAIAAAAAAAAAAABAAAACAAACAA=</HashCode>
+      <FileName>SyntaxTree\TerminalNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.TupleNode" Collapsed="true">
+    <Position X="50.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\TupleNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Clauses.FromClause" Collapsed="true">
+    <Position X="97.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>SyntaxTree\Clauses\FromClause.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Clauses.GroupByClause" Collapsed="true">
+    <Position X="106.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Clauses\GroupByClause.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Clauses.HavingClause" Collapsed="true">
+    <Position X="70.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Clauses\HavingClause.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Clauses.OrderByClause" Collapsed="true">
+    <Position X="66.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Clauses\OrderByClause.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Clauses.OrderByItem" Collapsed="true">
+    <Position X="7.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAQAAAAABAAAABAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Clauses\OrderByItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Clauses.OrderByValueItem" Collapsed="true">
+    <Position X="7.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Clauses\OrderByValueItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Clauses.WhereClause" Collapsed="true">
+    <Position X="70.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Clauses\WhereClause.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Functions.FunctionNode" Collapsed="true">
+    <Position X="16.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Functions\FunctionNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Functions.Value" Collapsed="true">
+    <Position X="16.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Functions\Value.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Joins.Inner" Collapsed="true">
+    <Position X="104.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Joins\Inner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Joins.Join" Collapsed="true">
+    <Position X="102.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAICAQAAgAAEIAAAAAAAACEAAAAgAACAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Joins\Join.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Joins.ObjectJoinEntry" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="116.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAACAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Joins\JoinEntry.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Joins.DictionaryJoinEntry" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="113.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAACAAEAAABAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>SyntaxTree\Joins\JoinEntry.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Joins.JoinTable" Collapsed="true">
+    <Position X="113.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAACAAAgAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Joins\JoinTable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Joins.Left" Collapsed="true">
+    <Position X="100" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Joins\Left.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Joins.Right" Collapsed="true">
+    <Position X="102.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Joins\Right.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Literals.BooleanLiteral" Collapsed="true">
+    <Position X="57.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Literals\BooleanLiteral.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Literals.DateLiteral" Collapsed="true">
+    <Position X="59.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Literals\DateLiteral.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Literals.IntegerLiteral" Collapsed="true">
+    <Position X="61.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Literals\IntegerLiteral.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Literals.LiteralNode" Collapsed="true">
+    <Position X="58.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAQAAAAAAAAAAAAAAAAABAAAAAQAgAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Literals\LiteralNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Literals.NullLiteral" Collapsed="true">
+    <Position X="64" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Literals\NullLiteral.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Literals.RealLiteral" Collapsed="true">
+    <Position X="52.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Literals\RealLiteral.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Literals.StringLiteral" Collapsed="true">
+    <Position X="55" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Literals\StringLiteral.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Expressions..Predicates.Boolean.AndNode" Collapsed="true">
+    <Position X="28" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Predicates\Boolean\AndNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Expressions..Predicates.Boolean.NotNode" Collapsed="true">
+    <Position X="12.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Predicates\Boolean\NotNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Expressions..Predicates.Boolean.OrNode" Collapsed="true">
+    <Position X="34.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Predicates\Boolean\OrNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Expressions.Predicates.Comparison.BetweenNode" Collapsed="true">
+    <Position X="19" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Predicates\Comparison\BetweenNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Expressions.Predicates.Comparison.EqualityNode" Collapsed="true">
+    <Position X="41.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Predicates\Comparison\EqualityNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Expressions.Predicates.Comparison.GreaterThanNode" Collapsed="true">
+    <Position X="43.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Predicates\Comparison\GreaterThanNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Expressions.Predicates.Comparison.GreaterThanOrEqualNode" Collapsed="true">
+    <Position X="46" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Predicates\Comparison\GreaterThanOrEqualNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Expressions.Predicates.Comparison.InequalityNode" Collapsed="true">
+    <Position X="48.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Predicates\Comparison\InEqualityNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Expressions.Predicates.Comparison.InNode" Collapsed="true">
+    <Position X="5.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Predicates\Comparison\InNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Expressions.Predicates.Comparison.IsNotNullNode" Collapsed="true">
+    <Position X="10" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Predicates\Comparison\IsNotNullNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Expressions.Predicates.Comparison.IsNullNode" Collapsed="true">
+    <Position X="10" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Predicates\Comparison\IsNullNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Expressions.Predicates.Comparison.LessThanNode" Collapsed="true">
+    <Position X="32.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Predicates\Comparison\LessThanNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Expressions.Predicates.Comparison.LessThanOrEqualNode" Collapsed="true">
+    <Position X="37" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Predicates\Comparison\LessThanOrEqualNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Expressions.Predicates.Comparison.LikeNode" Collapsed="true">
+    <Position X="21.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Predicates\Comparison\LikeNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Expressions.Predicates.Comparison.NotBetweenNode" Collapsed="true">
+    <Position X="19" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Predicates\Comparison\NotBetweenNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Expressions.Predicates.Comparison.NotInNode" Collapsed="true">
+    <Position X="5.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Predicates\Comparison\NotInNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SqlLinq.SyntaxTree.Expressions.Predicates.Comparison.NotLikeNode" Collapsed="true">
+    <Position X="21.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Expressions\Predicates\Comparison\NotLikeNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="SqlLinq.SyntaxTree.Joins.IJoinEntry" Collapsed="true">
+    <Position X="111.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SyntaxTree\Joins\JoinEntry.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="SymbolConstants" Collapsed="true">
+    <Position X="113.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>sUoBMNAiEEuAR5XOhVJAE/oKTAIAGJQIIcCjEFACCUA=</HashCode>
+      <FileName>SQL 89.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="RuleConstants" Collapsed="true">
+    <Position X="111.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>pwsFQARUpcBJ0xCEESwyUiA4MCtiEgMwFLKDCFOUGIs=</HashCode>
+      <FileName>SQL 89.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0B66963E-77FA-4B56-9091-C56F50D7FD12}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SqlLinq</RootNamespace>
+    <AssemblyName>SqlLinq</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <PlatformTarget>x86</PlatformTarget>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>BasicDesignGuidelineRules.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\SqlLinq.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ExtendedCorrectnessRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\SqlLinq.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GoldParser">
+      <HintPath>..\GoldParser.dll</HintPath>
+    </Reference>
+    <Reference Include="Kackman.RuntimeTypeLoader">
+      <HintPath>..\Kackman.RuntimeTypeLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqStatistics">
+      <HintPath>..\LinqStatistics.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DictionaryComparer.cs" />
+    <Compile Include="ScalarJoinQuery.cs" />
+    <Compile Include="ScalarQuery.cs" />
+    <Compile Include="SyntaxTree\AggregateFunctions.cs" />
+    <Compile Include="Exceptions.cs" />
+    <Compile Include="Filter.cs" />
+    <Compile Include="SyntaxTree\Clauses\GroupByCall.cs" />
+    <Compile Include="JoinQuery.cs" />
+    <Compile Include="LinqExtensions.cs" />
+    <Compile Include="ParserFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query.cs" />
+    <Compile Include="QueryBase.cs" />
+    <Compile Include="SQL 89.cs" />
+    <Compile Include="SqlLinq.cs" />
+    <Compile Include="SqlParser.cs" />
+    <Compile Include="SyntaxTree\Expressions\InListNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Predicates\Comparison\PredicateExpressionNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\TupleSelectNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\ValueListNode.cs" />
+    <Compile Include="SyntaxTree\SyntaxNodeAttribute.cs" />
+    <Compile Include="SyntaxRuleFactory.cs" />
+    <Compile Include="SyntaxTree\Aggregates\AggregateNode.cs" />
+    <Compile Include="SyntaxTree\Aggregates\AverageNode.cs" />
+    <Compile Include="SyntaxTree\Aggregates\CountAllNode.cs" />
+    <Compile Include="SyntaxTree\Aggregates\CountNode.cs" />
+    <Compile Include="SyntaxTree\Aggregates\CountStarNode.cs" />
+    <Compile Include="SyntaxTree\Aggregates\CountDistinctNode.cs" />
+    <Compile Include="SyntaxTree\Aggregates\MaxNode.cs" />
+    <Compile Include="SyntaxTree\Aggregates\MinNode.cs" />
+    <Compile Include="SyntaxTree\Aggregates\StandardDeviationNode.cs" />
+    <Compile Include="SyntaxTree\Aggregates\StandardDeviationPNode.cs" />
+    <Compile Include="SyntaxTree\Aggregates\SumNode.cs" />
+    <Compile Include="SyntaxTree\Aggregates\VarianceNode.cs" />
+    <Compile Include="SyntaxTree\Aggregates\VariancePNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\BinaryExpressionNode.cs" />
+    <Compile Include="SyntaxTree\Clauses\FromClause.cs" />
+    <Compile Include="SyntaxTree\Clauses\GroupByClause.cs" />
+    <Compile Include="SyntaxTree\Clauses\HavingClause.cs" />
+    <Compile Include="SyntaxTree\Clauses\OrderByClause.cs" />
+    <Compile Include="SyntaxTree\Clauses\OrderByItem.cs" />
+    <Compile Include="SyntaxTree\Clauses\OrderByValueItem.cs" />
+    <Compile Include="SyntaxTree\Clauses\WhereClause.cs" />
+    <Compile Include="SyntaxTree\Columns.cs" />
+    <Compile Include="SyntaxTree\ColumnSource.cs" />
+    <Compile Include="SyntaxTree\Expressions\Functions\FunctionNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Functions\Value.cs" />
+    <Compile Include="SyntaxTree\ColumnsStar.cs" />
+    <Compile Include="SyntaxTree\Expressions\ExpressionNode.cs" />
+    <Compile Include="SyntaxTree\Identifier.cs" />
+    <Compile Include="SyntaxTree\Joins\Inner.cs" />
+    <Compile Include="SyntaxTree\Joins\Join.cs" />
+    <Compile Include="SyntaxTree\Joins\JoinEntry.cs" />
+    <Compile Include="SyntaxTree\Joins\JoinResultSelector.cs" />
+    <Compile Include="SyntaxTree\Joins\Left.cs" />
+    <Compile Include="SyntaxTree\Joins\Right.cs" />
+    <Compile Include="SyntaxTree\Expressions\Literals\BooleanLiteral.cs" />
+    <Compile Include="SyntaxTree\Expressions\Literals\DateLiteral.cs" />
+    <Compile Include="SyntaxTree\Expressions\Literals\IntegerLiteral.cs" />
+    <Compile Include="SyntaxTree\Expressions\Literals\LiteralNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Literals\NullLiteral.cs" />
+    <Compile Include="SyntaxTree\Expressions\Literals\RealLiteral.cs" />
+    <Compile Include="SyntaxTree\Expressions\Literals\StringLiteral.cs" />
+    <Compile Include="SyntaxTree\Expressions\NodeWithId.cs" />
+    <Compile Include="SyntaxTree\NonTerminalNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Arithmetic\DivideNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Arithmetic\MinusNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Arithmetic\MultiplyNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Arithmetic\NegateNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Arithmetic\PlusNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Predicates\Boolean\AndNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Predicates\Boolean\NotNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Predicates\Boolean\OrNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Predicates\Comparison\BetweenNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Predicates\Comparison\EqualityNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Predicates\Comparison\GreaterThanNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Predicates\Comparison\GreaterThanOrEqualNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Predicates\Comparison\InEqualityNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Predicates\Comparison\InNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Predicates\Comparison\IsNotNullNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Predicates\Comparison\IsNullNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Predicates\Comparison\LessThanNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Predicates\Comparison\LessThanOrEqualNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Predicates\Comparison\LikeNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Predicates\Comparison\NotBetweenNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Predicates\Comparison\NotInNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\Predicates\Comparison\NotLikeNode.cs" />
+    <Compile Include="SyntaxTree\Expressions\TupleNode.cs" />
+    <Compile Include="SyntaxTree\ExpressionFactory.cs" />
+    <Compile Include="SyntaxTree\SelectNode.cs" />
+    <Compile Include="SyntaxTree\SyntaxNode.cs" />
+    <Compile Include="SyntaxTree\TerminalNode.cs" />
+    <Compile Include="TypeExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SQL-ANSI-89.4.cgt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
