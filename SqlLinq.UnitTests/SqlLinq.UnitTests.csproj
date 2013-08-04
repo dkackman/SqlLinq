@@ -75,6 +75,7 @@
     <Compile Include="Bugs.cs" />
     <Compile Include="IdentityTests.cs" />
     <Compile Include="NullableTests.cs" />
+    <Compile Include="SelectTests.cs" />
     <Compile Include="SubQueryTests.cs" />
     <Compile Include="TupleTests.cs" />
     <Compile Include="DictionaryComparer.cs" />
@@ -87,7 +88,6 @@
     <Compile Include="JoinTests.cs" />
     <Compile Include="OrderByTests.cs" />
     <Compile Include="ParseExceptionTests.cs" />
-    <Compile Include="SelectTests.cs" />
     <Compile Include="StandardDeviationTests.cs" />
     <Compile Include="TestTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
