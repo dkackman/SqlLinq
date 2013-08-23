@@ -43,7 +43,23 @@ namespace SqlLinq.UnitTests
         public void GroupByWithoutSelectingKey()
         {
             IEnumerable<Person> source = TestData.GetPeople();
-            var result = source.Query<Person, IDictionary<string, object>>("SELECT Avg(Age) AS AverageAge FROM this GROUP BY Address");
+            var result = source.Query<Person, IDictionary<string, object>>("SELECT Name, Avg(Age) AS AverageAge FROM this GROUP BY Address");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(SqlException))]
+        public void SelecFieldtWithoutGroupingOnIt()
+        {
+            IEnumerable<Person> source = TestData.GetPeople();
+            var result = source.Query<Person, IDictionary<string, object>>("SELECT Name, Address, Avg(Age) AS AverageAge FROM this GROUP BY Address");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(SqlException))]
+        public void AggregateWithoutGroupBy()
+        {
+            IEnumerable<Person> source = TestData.GetPeople();
+            var result = source.Query<Person, IDictionary<string, object>>("SELECT Name, Count(*) FROM this");
         }
 
         [TestMethod]

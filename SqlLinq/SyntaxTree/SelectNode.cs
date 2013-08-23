@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Collections.Generic;
 
+using SqlLinq.SyntaxTree.Aggregates;
 using SqlLinq.SyntaxTree.Expressions;
 using SqlLinq.SyntaxTree.Clauses;
 
@@ -78,12 +80,16 @@ namespace SqlLinq.SyntaxTree
                 if (!Columns.Aggregates.Any())
                     throw new SqlException("At least one aggregate function must be present along with a GROUP BY clause.\n");
 
-                NodeWithId groupByField = GroupByClause.GroupByItems.First();
-                string key = groupByField.Id.LookupId;
+                var groupByKeys = GroupByClause.GroupByItems.Select(g => g.Id.LookupId);
+                var nonAggregateSelectKeys = Columns.ColumnSources.Where(c => !(c is AggregateNode)).Select(c => c.Id.LookupId);
 
-                if (!Columns.GetFieldList().Contains(key, StringComparer.OrdinalIgnoreCase))
-                    throw new SqlException(string.Format("The query contains the GROUP BY field '{0}' that is not included in the result list.", key));
+                var difference = new HashSet<string>(groupByKeys, StringComparer.OrdinalIgnoreCase);
+                difference.SymmetricExceptWith(nonAggregateSelectKeys);
+                if (difference.Count > 0)
+                    throw new SqlException(string.Format("The query contains the field '{0}' that is not matched between the select list and group by clause.", difference.First()));
             }
+            else if (Columns.Aggregates.Any() && !Columns.IsAggregateOnlyQuery)
+                throw new SqlException("Your query contains fields and aggregates but no GROUP BY clause.\n");
 
             if ((Columns.Distinct || GroupByClause != null) && OrderByClause != null)
             {

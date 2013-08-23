@@ -27,7 +27,7 @@ namespace SqlLinq.SyntaxTree
         {
             get
             {   // we have only calculated fields
-                return Aggregates.Count() > 0 && Aggregates.Count() == ColumnSources.Count();
+                return Aggregates.Any() && Aggregates.Count() == ColumnSources.Count();
             }
         }
 

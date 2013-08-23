@@ -21,7 +21,7 @@ namespace SqlLinq.UnitTests
                          select new Tuple<string, double>(g.Key, g.Average(p => p.Age));
 
             Assert.IsTrue(result.Any());
-            Assert.IsTrue(answer.Any()); 
+            Assert.IsTrue(answer.Any());
             Assert.IsTrue(result.SequenceEqual(answer));
         }
 
@@ -36,7 +36,7 @@ namespace SqlLinq.UnitTests
                          select new Tuple<string, double>(g.Key, g.Count());
 
             Assert.IsTrue(result.Any());
-            Assert.IsTrue(answer.Any()); 
+            Assert.IsTrue(answer.Any());
             Assert.IsTrue(result.SequenceEqual(answer));
         }
 
@@ -122,6 +122,24 @@ namespace SqlLinq.UnitTests
                          { 
                              {"Address", g.Key},
                              {"AverageAge", g.Average(p => p.Age)}
+                         };
+
+            Assert.IsTrue(answer.SequenceEqual(result, new DictionaryComparer<string, object>()));
+        }
+
+        [TestMethod]
+        public void MultiFieldGroupBy()
+        {
+            IEnumerable<Person> source = TestData.GetPeople();
+            var result = source.Query<Person, IDictionary<string, object>>("SELECT Name, Address, Count(*) AS cnt FROM this GROUP BY Name, Address");
+
+            var answer = from p in source
+                         group p by new Tuple<string, string>(p.Name, p.Address) into g
+                         select new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase) 
+                         { 
+                             {"Name", g.Key.Item1},
+                             {"Address", g.Key.Item2},
+                             {"cnt", g.Count()}
                          };
 
             Assert.IsTrue(answer.SequenceEqual(result, new DictionaryComparer<string, object>()));
