@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Diagnostics;
 
 using SqlLinq.SyntaxTree.Expressions;
 using SqlLinq.SyntaxTree.Aggregates;
@@ -15,6 +16,14 @@ namespace SqlLinq.SyntaxTree.Clauses
         {
         }
 
+        internal override void CheckSyntax()
+        {
+            if (GroupByItems.Count() > 8)
+                throw new SqlException("Only 8 fields or less are currently supported for grouping");
+
+            base.CheckSyntax();
+        }
+
         public IEnumerable<NodeWithId> GroupByItems
         {
             get
@@ -25,17 +34,25 @@ namespace SqlLinq.SyntaxTree.Clauses
 
         public Func<IEnumerable<TSource>, IEnumerable<TResult>> CreateGroupBySelector<TSource, TResult>(IEnumerable<AggregateNode> aggregates)
         {
-            NodeWithId groupByField = GroupByItems.First();  // only one grouping field is supported atm
-            Type keyType = typeof(TSource).GetFieldType(groupByField.Id.LookupId);       
+            // figure out what types the multipart key consists of and get the correct geenric instance
+            // we are using Tuples to hold the key
+            IEnumerable<Type> types = GroupByItems.Select(g => typeof(TSource).GetFieldType(g.Id.LookupId));
+            IEnumerable<string> sourceFields = GroupByItems.Select(g => g.Id.LookupId);
+            Type tupleTemplate = GetTupleTemplate(types.Count());
+            Type tupleType = tupleTemplate.MakeGenericType(types.ToArray());
 
-            // create the key selector
-            var keyLambda = ExpressionFactory.CreateFieldSelectorLambda(typeof(TSource), groupByField.Id.LookupId);
+            // this instance of the tuple will be the multi-part key the same way as if you did
+            // from p in source
+            // group p by new Tuple<string, string>(p.Name, p.Address) into g
+            //
+            // for the degenerate case of only a single part key like a string a Tuple<string> is used
+            var newTuple = ExpressionFactory.CreateSelectIntoObjectConstructor<TSource>(tupleType, sourceFields, types);
 
             // the grouped subset passed to resultSelector
             var source = Expression.Parameter(typeof(IEnumerable<TSource>), "source");
 
             // create an object to cache some state for the result selector
-            GroupByCall<TSource, TResult> groupingCall = GroupByCallFactory.Create<TSource, TResult>(groupByField.Id.LookupId);
+            GroupByCall<TSource, TResult> groupingCall = GroupByCallFactory.Create<TSource, TResult>(sourceFields.ToList());
 
             // for each aggregate in the query create a lambda expression and add it to the cache
             foreach (AggregateNode aggregate in aggregates)
@@ -45,16 +62,34 @@ namespace SqlLinq.SyntaxTree.Clauses
             }
 
             // create the call to the result selector
-            var key = Expression.Parameter(keyType, "key");
+            var key = Expression.Parameter(tupleType, "key");
 
             var evaluate = Expression.Call(Expression.Constant(groupingCall), "Evaluate", null, key, source);
             var resultSelectorLambda = Expression.Lambda(evaluate, key, source);
 
             // package all of that up in a call to Enumerable.GroupBy
-            var groupByExpression = Expression.Call(typeof(Enumerable), "GroupBy", new Type[] { typeof(TSource), keyType, typeof(TResult) }, source, keyLambda, resultSelectorLambda);
+            var groupByExpression = Expression.Call(typeof(Enumerable), "GroupBy", new Type[] { typeof(TSource), tupleType, typeof(TResult) }, source, newTuple, resultSelectorLambda);
 
             // create the lamda and compile
             return Expression.Lambda<Func<IEnumerable<TSource>, IEnumerable<TResult>>>(groupByExpression, source).Compile();
+        }
+
+        private static Type GetTupleTemplate(int typeArgumentCount)
+        {
+            Debug.Assert(typeArgumentCount >= 1 && typeArgumentCount <= 8);
+            switch (typeArgumentCount)
+            {
+                case 1: return typeof(Tuple<>);
+                case 2: return typeof(Tuple<,>);
+                case 3: return typeof(Tuple<,,>);
+                case 4: return typeof(Tuple<,,,>);
+                case 5: return typeof(Tuple<,,,,>);
+                case 6: return typeof(Tuple<,,,,,>);
+                case 7: return typeof(Tuple<,,,,,,>);
+                case 8: return typeof(Tuple<,,,,,,,>);
+            }
+
+            throw new ArgumentException("Expressions greater than 8 fields are not supported.", "typeArgumentCount");
         }
     }
 }

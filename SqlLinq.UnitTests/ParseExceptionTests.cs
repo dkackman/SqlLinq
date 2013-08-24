@@ -93,5 +93,13 @@ namespace SqlLinq.UnitTests
             IEnumerable<Person> source = TestData.GetPeople();
             var result = source.Query<Person, IDictionary<string, object>>("SELECT Address, Avg(age) as A FROM this GROUP BY Address ORDER BY Name");
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(SqlException))]
+        public void LongGroupByExpressionGenerateExpcetion()
+        {
+            IEnumerable<Person> source = TestData.GetPeople();
+            var result = source.Query<Person, IDictionary<string, object>>("SELECT Name1, Name2, Name3, Name4, Name5, Name6, Name7, Name8, Name9, Avg(age) as A FROM this GROUP BY Name1, Name2, Name3, Name4, Name5, Name6, Name7, Name8, Name9");
+        }
     }
 }

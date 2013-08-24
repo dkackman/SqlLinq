@@ -78,14 +78,29 @@ namespace SqlLinq
         public static Expression<Func<TSource, TResult>> CreateSelectIntoObjectConstructor<TSource, TResult>(IEnumerable<string> sourceFields, IEnumerable<Type> resultTypes)
         {
             ParameterExpression item = Expression.Parameter(typeof(TSource), "item");
+            Expression _new = CreateNewObjectExpression(typeof(TSource), typeof(TResult), sourceFields, resultTypes, item);
+
+            return Expression.Lambda<Func<TSource, TResult>>(_new, item);
+        }
+
+        public static LambdaExpression CreateSelectIntoObjectConstructor<TSource>(Type tResult, IEnumerable<string> sourceFields, IEnumerable<Type> resultTypes)
+        {
+            ParameterExpression item = Expression.Parameter(typeof(TSource), "item");
+            Expression _new = CreateNewObjectExpression(typeof(TSource), tResult, sourceFields, resultTypes, item);
+
+            return Expression.Lambda(_new, item);
+        }
+
+        private static Expression CreateNewObjectExpression(Type tSource, Type tResult, IEnumerable<string> sourceFields, IEnumerable<Type> resultTypes, ParameterExpression item)
+        {
             var zip = sourceFields.Zip(resultTypes, (s, t) => new Tuple<string, Type>(s, t));
 
             var bindings = zip.Select(tuple => CreateFieldSelector(item, tuple.Item1, tuple.Item2));   // the values that will intialize a TResult
 
-            ConstructorInfo constructor = typeof(TResult).GetConstructor(resultTypes.ToArray());  // the constructor for a new TResult
+            ConstructorInfo constructor = tResult.GetConstructor(resultTypes.ToArray());  // the constructor for a new TResult
             Debug.Assert(constructor != null);
 
-            return Expression.Lambda<Func<TSource, TResult>>(Expression.New(constructor, bindings), item);
+            return Expression.New(constructor, bindings);
         }
 
         public static Expression<Func<TSource, TResult>> CreateSelectSingleField<TSource, TResult>(string propertyName)
