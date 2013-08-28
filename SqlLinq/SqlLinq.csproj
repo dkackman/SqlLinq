@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DictionaryComparer.cs" />
+    <Compile Include="ExpandoComparer.cs" />
     <Compile Include="ScalarJoinQuery.cs" />
     <Compile Include="ScalarQuery.cs" />
     <Compile Include="SyntaxTree\AggregateFunctions.cs" />

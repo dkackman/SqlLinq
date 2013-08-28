@@ -73,12 +73,12 @@
     <Compile Include="AggregateTests.cs" />
     <Compile Include="BooleanTests.cs" />
     <Compile Include="Bugs.cs" />
+    <Compile Include="DictionaryComparerTests.cs" />
     <Compile Include="IdentityTests.cs" />
     <Compile Include="NullableTests.cs" />
     <Compile Include="SelectTests.cs" />
     <Compile Include="SubQueryTests.cs" />
     <Compile Include="TupleTests.cs" />
-    <Compile Include="DictionaryComparer.cs" />
     <Compile Include="DictionaryTests.cs" />
     <Compile Include="DistinctTests.cs" />
     <Compile Include="DynamicTests.cs" />

@@ -60,6 +60,10 @@ namespace SqlLinq
 
                 return (IEqualityComparer<TResult>)Activator.CreateInstance(t);
             }
+            else if (typeof(TResult) == typeof(object))
+            {
+                return (IEqualityComparer<TResult>)new ExpandoComparer();
+            }
 
             return EqualityComparer<TResult>.Default;
         }

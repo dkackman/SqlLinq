@@ -51,16 +51,17 @@ namespace SqlLinq.SyntaxTree.Clauses
             // the grouped subset passed to resultSelector
             var source = Expression.Parameter(typeof(IEnumerable<TSource>), "source");
 
-            // create an object to cache some state for the result selector
-            GroupByCall<TSource, TResult> groupingCall = GroupByCallFactory.Create<TSource, TResult>(sourceFields.ToList());
+            var aggregateDelegates = from a in aggregates
+                                     select new KeyValuePair<string, Delegate>
+                                     (
+                                         a.Alias,
+                                         Expression.Lambda(a.GetCallExpression(typeof(TSource), source), source).Compile()
+                                     );
 
-            // for each aggregate in the query create a lambda expression and add it to the cache
-            foreach (AggregateNode aggregate in aggregates)
-            {
-                var aggregateExpression = aggregate.GetCallExpression(typeof(TSource), source);
-                groupingCall.Aggregates.Add(aggregate.Alias, Expression.Lambda(aggregateExpression, source).Compile());
-            }
-
+            // create an object to cache the aggregate expressions for the result selector
+            // this is so we can invoke the aggregate on the grouped subset of data
+            GroupByCall<TSource, TResult> groupingCall = GroupByCallFactory.Create<TSource, TResult>(sourceFields, aggregateDelegates);
+            
             // create the call to the result selector
             var key = Expression.Parameter(tupleType, "key");
 

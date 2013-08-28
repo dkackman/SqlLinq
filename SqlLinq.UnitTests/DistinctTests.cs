@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
+using System.Collections.Generic;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SqlLinq.UnitTests
@@ -35,6 +36,32 @@ namespace SqlLinq.UnitTests
                           select new Tuple<string, string>(p.Name, p.Address)).Distinct();
 
             Assert.IsTrue(result.SequenceEqual(answer));
+        }
+
+        [TestMethod]
+        public void ExpandoAsDistinct()
+        {
+            var source = new List<dynamic>();
+            for (int i = 0; i < 10; ++i)
+            {
+                string iter = i.ToString();
+                for (int j = 0; j < 3; ++j)
+                {
+                    dynamic customer = new ExpandoObject();
+                    customer.City = "Chicago" + iter;
+                    customer.Id = i;
+                    customer.Name = "Name" + iter;
+                    customer.CompanyName = "Company" + iter + j.ToString();
+
+                    source.Add(customer);
+                }
+            }
+            var result = source.Cast<IDictionary<string, object>>().Query<IDictionary<string, object>, dynamic>("SELECT DISTINCT City, Name FROM this").Cast<IDictionary<string, object>>();
+
+            var answer = source.Select(d => { dynamic o = new ExpandoObject(); o.City = d.City; o.Name = d.Name; return o; }).Cast<IDictionary<string, object>>().Distinct(new DictionaryComparer<string, object>());
+
+            Assert.IsTrue(result.Any());
+            Assert.IsTrue(answer.SequenceEqual(result, new DictionaryComparer<string, object>()));
         }
     }
 }
