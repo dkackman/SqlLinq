@@ -12,12 +12,14 @@ namespace SqlLinq.UnitTests
         {
             var x = new Dictionary<string, object>()
             {
-                { "a", 1 }
+                { "a", 1 },
+                { "b", 1 }
             };
 
             var y = new Dictionary<string, object>()
             {
-                { "a", 1 }
+                { "a", 1 },
+                { "b", 1 }
             };
 
             var comparer = new DictionaryComparer<string, object>();
@@ -30,12 +32,14 @@ namespace SqlLinq.UnitTests
         {
             var x = new Dictionary<string, object>()
             {
-                { "a", 1 }
+                { "a", 1 },
+                { "b", 1 }
             };
 
             var y = new Dictionary<string, object>()
             {
-                { "a", 2 }
+                { "a", 1 },
+                { "b", 2 }
             };
 
             var comparer = new DictionaryComparer<string, object>();
@@ -53,7 +57,7 @@ namespace SqlLinq.UnitTests
 
             var y = new Dictionary<string, object>()
             {
-                { "a", 2 },
+                { "a", 1 },
                 { "b", 2 }
             };
 
@@ -68,13 +72,13 @@ namespace SqlLinq.UnitTests
             var x = new Dictionary<string, object>()
             {
                 { "a", 2 },
-                { "c", 2 }
+                { "b", 2 }
             };
 
             var y = new Dictionary<string, object>()
             {
                 { "a", 2 },
-                { "b", 2 }
+                { "c", 2 }
             };
 
             var comparer = new DictionaryComparer<string, object>();

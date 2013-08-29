@@ -56,7 +56,7 @@ namespace SqlLinq
             return hash;
         }
 
-        private int ShiftAndWrap(int value, int positions)
+        private static int ShiftAndWrap(int value, int positions)
         {
             positions = positions & 0x1F;
 
