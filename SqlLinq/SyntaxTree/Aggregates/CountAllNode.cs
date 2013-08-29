@@ -6,7 +6,7 @@ using System.Reflection;
 namespace SqlLinq.SyntaxTree.Aggregates
 {
     [SyntaxNode(RuleConstants.RULE_AGGREGATE_COUNT_LPAREN_ALL_RPAREN)]
-    class CountAllNode : CountNode
+    public class CountAllNode : CountNode
     {
         public CountAllNode()
         {

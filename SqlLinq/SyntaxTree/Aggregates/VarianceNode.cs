@@ -12,9 +12,12 @@ namespace SqlLinq.SyntaxTree.Aggregates
             Name = "Variance";
         }
 
-        protected override Type GetEvaluatatorType()
+        protected override Type EvaluatatorType
         {
-            return typeof(EnumerableStats);
+            get
+            {
+                return typeof(EnumerableStats);
+            }
         }
     }
 }

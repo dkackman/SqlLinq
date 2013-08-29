@@ -66,7 +66,7 @@ enum SymbolConstants : int
     SYMBOL_ADDEXP = 63, // <Add Exp>
     SYMBOL_AGGREGATE = 64, // <Aggregate>
     SYMBOL_ANDEXP = 65, // <And Exp>
-    SYMBOL_COLUMNALIAS = 66, // <Column Alias>
+    SYMBOL_COLUMNALIAS = 66, // <Column ColumnAlias>
     SYMBOL_COLUMNITEM = 67, // <Column Item>
     SYMBOL_COLUMNLIST = 68, // <Column List>
     SYMBOL_COLUMNSOURCE = 69, // <Column Source>
@@ -108,9 +108,9 @@ enum RuleConstants : int
     RULE_COLUMNITEM = 6, // <Column Item> ::= <Column Source>
     RULE_COLUMNSOURCE = 7, // <Column Source> ::= <Aggregate>
     RULE_COLUMNSOURCE_ID = 8, // <Column Source> ::= Id
-    RULE_COLUMNSOURCE2 = 9, // <Column Source> ::= <Aggregate> <Column Alias>
-    RULE_COLUMNSOURCE_ID2 = 10, // <Column Source> ::= Id <Column Alias>
-    RULE_COLUMNALIAS_AS_ID = 11, // <Column Alias> ::= AS Id
+    RULE_COLUMNSOURCE2 = 9, // <Column Source> ::= <Aggregate> <Column ColumnAlias>
+    RULE_COLUMNSOURCE_ID2 = 10, // <Column Source> ::= Id <Column ColumnAlias>
+    RULE_COLUMNALIAS_AS_ID = 11, // <Column ColumnAlias> ::= AS Id
     RULE_RESTRICTION_ALL = 12, // <Restriction> ::= ALL
     RULE_RESTRICTION_DISTINCT = 13, // <Restriction> ::= DISTINCT
     RULE_RESTRICTION = 14, // <Restriction> ::= 

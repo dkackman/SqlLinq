@@ -54,7 +54,7 @@ namespace SqlLinq.SyntaxTree.Clauses
             var aggregateDelegates = from a in aggregates
                                      select new KeyValuePair<string, Delegate>
                                      (
-                                         a.Alias,
+                                         a.ColumnAlias,
                                          Expression.Lambda(a.GetCallExpression(typeof(TSource), source), source).Compile()
                                      );
 

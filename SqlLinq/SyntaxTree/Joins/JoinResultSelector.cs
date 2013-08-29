@@ -48,7 +48,7 @@ namespace SqlLinq.SyntaxTree.Joins
                 if (_inner.ContainsKey(key))
                     return _inner[key];
 
-                throw new IndexOutOfRangeException("An item with the specified key does not exist " + key);
+                throw new ArgumentException("An item with the specified key does not exist " + key);
             }
         }
     }

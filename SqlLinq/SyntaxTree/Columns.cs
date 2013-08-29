@@ -57,6 +57,7 @@ namespace SqlLinq.SyntaxTree
             return Expression.Lambda<Func<IEnumerable<TSource>, IEnumerable<TInner>, TResult>>(_get, source).Compile();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         private static TResult GetScalarValue<TResult>(IEnumerable<object> resultList)
         {
             object ret = resultList.First();
@@ -87,11 +88,11 @@ namespace SqlLinq.SyntaxTree
 
             // for each aggregate in the query create a lambda expression and add it to the cache
             var delegates = (from a in Aggregates
-                    select new 
-                    {
-                        Name = a.Alias,
-                        Func = Expression.Lambda(a.GetCallExpression(typeof(TSource), arg), arg).Compile()                        
-                    }).ToDictionary(o => o.Name, o => o.Func, StringComparer.OrdinalIgnoreCase);
+                             select new
+                             {
+                                 Name = a.ColumnAlias,
+                                 Func = Expression.Lambda(a.GetCallExpression(typeof(TSource), arg), arg).Compile()
+                             }).ToDictionary(o => o.Name, o => o.Func, StringComparer.OrdinalIgnoreCase);
 
             // create an object to cache some state for the result selector
             AggregateFunctions<TSource, TResult> aggregateSet = AggregateFunctionsFactory.Create<TSource, TResult>(delegates);
@@ -103,8 +104,8 @@ namespace SqlLinq.SyntaxTree
 
         private Func<TSource, TResult> CreateReturnFunction<TSource, TResult>()
         {
-            IEnumerable<string> fields = GetFieldList();
-            IEnumerable<string> results = GetResultList();
+            IEnumerable<string> fields = FieldList;
+            IEnumerable<string> results = ResultList;
             Debug.Assert(fields.Any() && results.Any());
 
             // if TResult is a dictionary
@@ -128,19 +129,23 @@ namespace SqlLinq.SyntaxTree
             return ExpressionFactory.CreateSelectIntoObjectConstructor<TSource, TResult>(fields, resultTypes).Compile();
         }
 
-        public IEnumerable<string> GetFieldList()
+        public IEnumerable<string> FieldList
         {
-            return (from c in ColumnSources
-                    from f in c.GetFields()
-                    select f).Select(field => field.LookupId).Distinct(StringComparer.OrdinalIgnoreCase);
+            get
+            {
+                return (from c in ColumnSources
+                        from f in c.GetFields()
+                        select f).Select(field => field.LookupId).Distinct(StringComparer.OrdinalIgnoreCase);
+            }
         }
-
-        public IEnumerable<string> GetResultList()
+        public IEnumerable<string> ResultList
         {
-            return (from c in ColumnSources
-                    select c.Alias).Distinct(StringComparer.OrdinalIgnoreCase);
+            get
+            {
+                return (from c in ColumnSources
+                        select c.ColumnAlias).Distinct(StringComparer.OrdinalIgnoreCase);
+            }
         }
-
         private IEnumerable<Type> GetResultTypes(Type tResult)
         {
             var columns = ColumnSources;

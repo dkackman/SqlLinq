@@ -11,14 +11,17 @@ namespace SqlLinq.SyntaxTree.Aggregates
         {
         }
 
-        protected override Type GetEvaluatatorType()
+        protected override Type EvaluatatorType
         {
-            return this.GetType();
+            get
+            {
+                return this.GetType();
+            }
         }
 
         protected override MethodInfo GetEvaluationMethod(Type paramType)
         {
-            return (from method in GetEvaluatatorType().GetMethods(BindingFlags.Static | BindingFlags.Public)
+            return (from method in EvaluatatorType.GetMethods(BindingFlags.Static | BindingFlags.Public)
                     where method.Name == Name
                     && method.GetParameters().Length == 1
                     select method).First();
@@ -26,10 +29,9 @@ namespace SqlLinq.SyntaxTree.Aggregates
 
         protected override MethodCallExpression GetPropertyOrFieldAggregateExpression(Type tSource, Expression param)
         {
-            string sourceFieldName = GetSourceFieldName();
-            LambdaExpression lambda = ExpressionFactory.CreateFieldSelectorLambda(tSource, sourceFieldName);
+            LambdaExpression lambda = ExpressionFactory.CreateFieldSelectorLambda(tSource, SourceFieldName);
 
-            return Expression.Call(GetEvaluatatorType(), Name, new Type[] { tSource, tSource.GetFieldType(sourceFieldName) }, param, lambda);
+            return Expression.Call(EvaluatatorType, Name, new Type[] { tSource, tSource.GetFieldType(SourceFieldName) }, param, lambda);
         }
     }
 }

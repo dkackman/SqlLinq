@@ -78,7 +78,7 @@ namespace SqlLinq
         public static Expression<Func<TSource, TResult>> CreateSelectIntoObjectConstructor<TSource, TResult>(IEnumerable<string> sourceFields, IEnumerable<Type> resultTypes)
         {
             ParameterExpression item = Expression.Parameter(typeof(TSource), "item");
-            Expression _new = CreateNewObjectExpression(typeof(TSource), typeof(TResult), sourceFields, resultTypes, item);
+            Expression _new = CreateNewObjectExpression(typeof(TResult), sourceFields, resultTypes, item);
 
             return Expression.Lambda<Func<TSource, TResult>>(_new, item);
         }
@@ -86,12 +86,12 @@ namespace SqlLinq
         public static LambdaExpression CreateSelectIntoObjectConstructor<TSource>(Type tResult, IEnumerable<string> sourceFields, IEnumerable<Type> resultTypes)
         {
             ParameterExpression item = Expression.Parameter(typeof(TSource), "item");
-            Expression _new = CreateNewObjectExpression(typeof(TSource), tResult, sourceFields, resultTypes, item);
+            Expression _new = CreateNewObjectExpression(tResult, sourceFields, resultTypes, item);
 
             return Expression.Lambda(_new, item);
         }
 
-        private static Expression CreateNewObjectExpression(Type tSource, Type tResult, IEnumerable<string> sourceFields, IEnumerable<Type> resultTypes, ParameterExpression item)
+        private static Expression CreateNewObjectExpression(Type tResult, IEnumerable<string> sourceFields, IEnumerable<Type> resultTypes, ParameterExpression item)
         {
             var zip = sourceFields.Zip(resultTypes, (s, t) => new Tuple<string, Type>(s, t));
 

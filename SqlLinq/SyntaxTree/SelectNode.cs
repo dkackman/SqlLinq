@@ -93,7 +93,7 @@ namespace SqlLinq.SyntaxTree
 
             if ((Columns.Distinct || GroupByClause != null) && OrderByClause != null)
             {
-                var selectFields = Columns.GetFieldList();
+                var selectFields = Columns.FieldList;
                 foreach (OrderByItem item in OrderByClause.OrderByItems)
                 {
                     if (!selectFields.Contains(item.Id.LookupId, StringComparer.OrdinalIgnoreCase))

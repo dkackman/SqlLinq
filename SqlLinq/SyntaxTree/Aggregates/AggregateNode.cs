@@ -28,14 +28,14 @@ namespace SqlLinq.SyntaxTree.Aggregates
 
         public string Name { get; protected set; }
 
-        public override string Alias
+        public override string ColumnAlias
         {
             get
             {
                 if (Parent is ColumnSource)
-                    return ((ColumnSource)Parent).Alias;
+                    return ((ColumnSource)Parent).ColumnAlias;
 
-                return base.Alias;
+                return base.ColumnAlias;
             }
         }
 
@@ -44,16 +44,18 @@ namespace SqlLinq.SyntaxTree.Aggregates
             if (DoNotDereferenceFields)
                 return new Identifier(Name + "Value");
 
-            return new Identifier(Name + GetSourceFieldName());
+            return new Identifier(Name + SourceFieldName);
         }
 
-        protected string GetSourceFieldName()
+        protected string SourceFieldName
         {
-            NodeWithId id = FindChild<NodeWithId>();
-            Debug.Assert(id != null);
-            return id.Id.LocalId;
+            get
+            {
+                NodeWithId id = FindChild<NodeWithId>();
+                Debug.Assert(id != null);
+                return id.Id.LocalId;
+            }
         }
-
         public virtual bool DoNotDereferenceFields
         {
             get
@@ -86,19 +88,22 @@ namespace SqlLinq.SyntaxTree.Aggregates
         protected virtual MethodCallExpression GetPropertyOrFieldAggregateExpression(Type tSource, Expression param)
         {
             // otherwise the target of the aggregate is a property on the source type such as Avg(Age)
-            Expression lambda = ExpressionFactory.CreateFieldSelectorLambda(tSource, GetSourceFieldName());
+            Expression lambda = ExpressionFactory.CreateFieldSelectorLambda(tSource, SourceFieldName);
 
-            return Expression.Call(GetEvaluatatorType(), Name, new Type[] { tSource }, param, lambda);
+            return Expression.Call(EvaluatatorType, Name, new Type[] { tSource }, param, lambda);
         }
 
-        protected virtual Type GetEvaluatatorType()
+        protected virtual Type EvaluatatorType
         {
-            return typeof(Enumerable);
+            get
+            {
+                return typeof(Enumerable);
+            }
         }
 
         protected virtual MethodInfo GetEvaluationMethod(Type paramType)
         {
-            return GetEvaluatatorType().GetMethod(Name, new Type[] { paramType });
+            return EvaluatatorType.GetMethod(Name, new Type[] { paramType });
         }
     }
 }

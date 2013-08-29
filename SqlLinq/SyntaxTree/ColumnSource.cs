@@ -4,7 +4,7 @@ using SqlLinq.SyntaxTree.Expressions;
 
 namespace SqlLinq.SyntaxTree
 {
-    [SyntaxNode(RuleConstants.RULE_COLUMNSOURCE_ID2)]  // AS Alias
+    [SyntaxNode(RuleConstants.RULE_COLUMNSOURCE_ID2)]  // AS ColumnAlias
     [SyntaxNode(RuleConstants.RULE_COLUMNSOURCE_ID)]
     [SyntaxNode(RuleConstants.RULE_COLUMNSOURCE2)]
     public class ColumnSource : NonTerminalNode
@@ -15,7 +15,7 @@ namespace SqlLinq.SyntaxTree
         {
         }
 
-        public virtual string Alias
+        public virtual string ColumnAlias
         {
             get
             {

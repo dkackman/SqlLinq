@@ -12,6 +12,7 @@ namespace SqlLinq.SyntaxTree.Expressions.Predicates.Comparison
         {
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         protected Expression CreateInExpression(Expression list, Expression left)
         {
             Debug.Assert(list.Type.IsArray);

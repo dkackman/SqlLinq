@@ -24,9 +24,12 @@ namespace SqlLinq.SyntaxTree.Aggregates
             }
         }
 
-        protected override Type GetEvaluatatorType()
+        protected override Type EvaluatatorType
         {
-            return typeof(Enumerable);
+            get
+            {
+                return typeof(Enumerable);
+            }
         }
     }
 }
