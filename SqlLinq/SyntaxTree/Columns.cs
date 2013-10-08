@@ -157,8 +157,8 @@ namespace SqlLinq.SyntaxTree
         {
             get
             {
-                // depending on how the select statement is contructed the parser may or may not elimate some intermediate reductions
-                // the where statement here will elimate those instances where reductions are not elimated by the parser        
+                // depending on how the select statement is constructed the parser may or may not eliminate some intermediate reductions
+                // the where statement here will eliminate those instances where reductions are not eliminated by the parser        
                 return FindDescendants<ColumnSource>().Where(item => item.FindChild<ColumnSource>() == null);
             }
         }

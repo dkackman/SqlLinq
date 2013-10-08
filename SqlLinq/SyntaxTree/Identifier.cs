@@ -17,7 +17,7 @@ namespace SqlLinq.SyntaxTree
 
         /// <summary>
         /// In a qualified identifier in the format table.field is the left string
-        /// In a non qualified identifer is empty string
+        /// In a non qualified identifier is empty string
         /// </summary>
         public string Qualifier
         {
@@ -32,7 +32,7 @@ namespace SqlLinq.SyntaxTree
 
         /// <summary>
         /// In a qualified identifier in the format table.field is the right string
-        /// In a non qualified identifer is SourceId string
+        /// In a non qualified identifier is SourceId string
         /// </summary>
         public string LocalId
         {

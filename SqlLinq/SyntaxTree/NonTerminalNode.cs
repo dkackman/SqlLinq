@@ -16,6 +16,14 @@ namespace SqlLinq.SyntaxTree
         {
         }
 
+        public string RuleName
+        {
+            get
+            {
+                return Rule.Name;
+            }
+        }
+
         internal Rule Rule { get; set; }       
 
         /// <summary>
