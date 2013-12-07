@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>LinqStatistics</id>
+    <version>1.0.1</version>
+    <title>LinqStatistics</title>
+    <authors>dkackman</authors>
+    <owners>dkackman</owners>
+    <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
+    <projectUrl>https://github.com/dkackman/LinqStatistics</projectUrl>
+    <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Extension methods that add additional simple statical calculations to the built in sum, min, max, average etc.
+      Includes Covariance, Median, Mode, Pearson's Chi Squared, Range, Standard Deviation (sample and population), Variance (sample and population) and Kurtosis</description>
+    <releaseNotes>Replaced variance algorithm with numerically stable implementation
+Added Kurtosis</releaseNotes>
+    <copyright>Copyright Don Kackman 2013</copyright>
+    <language>en-US</language>
+    <dependencies>
+      <group targetFramework=".NETFramework4.0" />
+    </dependencies>
+  </metadata>
+</package>

@@ -43,15 +43,14 @@ namespace SqlLinq.SyntaxTree.Expressions.Predicates.Comparison
 
         internal static string ConvertLikeToRegex(string pattern)
         {
-            /* Turn "off" all regular expression related syntax in the pattern string. */
             StringBuilder builder = new StringBuilder();
             builder.Append("^");
-            builder.Append(Regex.Escape(pattern));
+            builder.Append(Regex.Escape(pattern)); // Turn "off" all regular expression related syntax in the pattern string
             builder.Append("$");
 
             /* Replace the SQL LIKE wildcard metacharacters with the
             * equivalent regular expression metacharacters. */
-            builder.Replace("%", ".*?").Replace("_", ".");
+            builder.Replace("%", ".*").Replace("_", ".");
 
             /* The previous call to Regex.Escape actually turned off
             * too many metacharacters, i.e. those which are recognized by
@@ -61,7 +60,7 @@ namespace SqlLinq.SyntaxTree.Expressions.Predicates.Comparison
             builder.Replace(@"\[", "[").Replace(@"\]", "]").Replace(@"\^", "^");
 
             // put like syntax wildcard literals back
-            builder.Replace("[.*?]", "[%]").Replace("[.]", "[_]");
+            builder.Replace("[.*]", "[%]").Replace("[.]", "[_]");
 
             return builder.ToString();
         }
