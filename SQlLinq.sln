@@ -1,11 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E448810C-1180-4F0F-B721-8C247FC299A7}"
 	ProjectSection(SolutionItems) = preProject
 		GoldParser.dll = GoldParser.dll
 		Kackman.RuntimeTypeLoader.dll = Kackman.RuntimeTypeLoader.dll
-		LinqStatistics.dll = LinqStatistics.dll
 		SQL-ANSI-89.4.grm = SQL-ANSI-89.4.grm
 		TestSettings2.testsettings = TestSettings2.testsettings
 	EndProjectSection
@@ -40,8 +41,8 @@ Global
 		{0B66963E-77FA-4B56-9091-C56F50D7FD12}.Part1|x86.Build.0 = Release|x86
 		{0B66963E-77FA-4B56-9091-C56F50D7FD12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B66963E-77FA-4B56-9091-C56F50D7FD12}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0B66963E-77FA-4B56-9091-C56F50D7FD12}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{0B66963E-77FA-4B56-9091-C56F50D7FD12}.Release|Mixed Platforms.Build.0 = Release|x86
+		{0B66963E-77FA-4B56-9091-C56F50D7FD12}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0B66963E-77FA-4B56-9091-C56F50D7FD12}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0B66963E-77FA-4B56-9091-C56F50D7FD12}.Release|x86.ActiveCfg = Release|x86
 		{0B66963E-77FA-4B56-9091-C56F50D7FD12}.Release|x86.Build.0 = Release|x86
 		{788944F8-D682-4A39-9AD2-5781387D2640}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

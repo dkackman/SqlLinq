@@ -97,8 +97,9 @@
     <Reference Include="Kackman.RuntimeTypeLoader">
       <HintPath>..\Kackman.RuntimeTypeLoader.dll</HintPath>
     </Reference>
-    <Reference Include="LinqStatistics">
-      <HintPath>..\LinqStatistics.dll</HintPath>
+    <Reference Include="LinqStatistics, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\LinqStatistics.1.0.1\lib\net40\LinqStatistics.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -230,6 +231,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
