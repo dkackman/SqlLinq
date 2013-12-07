@@ -74,7 +74,9 @@
     <Compile Include="BooleanTests.cs" />
     <Compile Include="Bugs.cs" />
     <Compile Include="DictionaryComparerTests.cs" />
+    <Compile Include="Helper.cs" />
     <Compile Include="IdentityTests.cs" />
+    <Compile Include="LikeConversionTests.cs" />
     <Compile Include="NullableTests.cs" />
     <Compile Include="SelectTests.cs" />
     <Compile Include="SubQueryTests.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="TestData.cs" />
     <Compile Include="TypeComparisonTests.cs" />
     <Compile Include="NonASCIITests.cs" />
+    <Compile Include="LikeTests.cs" />
     <Compile Include="VarianceTests.cs" />
   </ItemGroup>
   <ItemGroup>

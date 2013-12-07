@@ -71,6 +71,7 @@ namespace SqlLinq.UnitTests
                 new Person { Birthdate = new DateTime(1932, 7, 21), Weight=160, Name = "Joe", Address = "401 Main St., St. Paul, MN 55132" },
                 new Person { Birthdate = new DateTime(1932, 7, 21), Weight=160, Name = "Joe", Address = "502 Elm St., St. Paul, MN 55132" },
                 new Person { Birthdate = new DateTime(1984, 1, 11), Weight=170, Name = "Joe", Address = "502 Elm St., St. Paul, MN 55132" },
+                new Person { Birthdate = new DateTime(1984, 1, 11), Weight=170, Name = "Evan", Address = "502 Elm St., St. Paul, MN 55132" },
                 new Person { Birthdate = new DateTime(1936, 6, 20), Weight=180, Name = "Jim", Address = null },
                 new Person { Birthdate = new DateTime(1936, 6, 20), Weight=180, Name = "Øleg", Address = null }
             };
