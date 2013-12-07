@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Text;
@@ -36,29 +35,10 @@ namespace SqlLinq.SyntaxTree.Expressions.Predicates.Comparison
         internal static string ConvertLikeToRegex(string pattern)
         {
             /* Turn "off" all regular expression related syntax in the pattern string. */
-            StringBuilder builder = new StringBuilder(Regex.Escape(pattern));
-
-            // these are needed because the .*? replacement below at the begining or end of the string is not
-            // accounting for cases such as LIKE '%abc' or LIKE 'abc%'
-            bool startsWith = pattern.StartsWith("%") && !pattern.EndsWith("%");
-            bool endsWith = !pattern.StartsWith("%") && pattern.EndsWith("%");
-
-            // this is a little tricky
-            // ends with in like is '%abc'
-            // in regex it's 'abc$'
-            // so need to tanspose
-            if (startsWith)
-            {
-                builder.Replace("%", "", 0, 1);
-                builder.Append("$");
-            }
-
-            // same but inverse here
-            if (endsWith)
-            {
-                builder.Replace("%", "", pattern.Length - 1, 1);
-                builder.Insert(0, "^");
-            }
+            StringBuilder builder = new StringBuilder();
+            builder.Append("^");
+            builder.Append(Regex.Escape(pattern));
+            builder.Append("$");                
 
             /* Replace the SQL LIKE wildcard metacharacters with the
             * equivalent regular expression metacharacters. */
