@@ -50,5 +50,44 @@ namespace SqlLinq.UnitTests
             Assert.IsTrue(LikeNode.IsRegexMatch("bcd", regex));
             Assert.IsFalse(LikeNode.IsRegexMatch("def", regex));
         }
+
+        [TestMethod]
+        public void RegexPercentLiteral()
+        {
+            string regex = LikeNode.ConvertLikeToRegex("e[%]");
+
+            Assert.IsTrue(LikeNode.IsRegexMatch("e%", regex));
+            Assert.IsFalse(LikeNode.IsRegexMatch("e", regex));
+            Assert.IsFalse(LikeNode.IsRegexMatch("%", regex));
+        }
+
+        [TestMethod]
+        public void RegexPercentLiteral2()
+        {
+            string regex = LikeNode.ConvertLikeToRegex("%e[%]");
+
+            Assert.IsTrue(LikeNode.IsRegexMatch("be%", regex));
+            Assert.IsTrue(LikeNode.IsRegexMatch("e%", regex));
+            Assert.IsFalse(LikeNode.IsRegexMatch("e%d", regex));
+        }
+
+        [TestMethod]
+        public void RegexSingleCharacterWildcard()
+        {
+            string regex = LikeNode.ConvertLikeToRegex("b_n");
+
+            Assert.IsTrue(LikeNode.IsRegexMatch("bin", regex));
+            Assert.IsTrue(LikeNode.IsRegexMatch("bun", regex));
+            Assert.IsFalse(LikeNode.IsRegexMatch("bid", regex));
+        }
+
+        [TestMethod]
+        public void RegexSingleCharacterWildcardLiteral()
+        {
+            string regex = LikeNode.ConvertLikeToRegex("b[_]n");
+
+            Assert.IsTrue(LikeNode.IsRegexMatch("b_n", regex));
+            Assert.IsFalse(LikeNode.IsRegexMatch("bin", regex));
+        }
     }
 }

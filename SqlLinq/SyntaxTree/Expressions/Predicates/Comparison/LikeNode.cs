@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Text;
@@ -14,17 +15,25 @@ namespace SqlLinq.SyntaxTree.Expressions.Predicates.Comparison
 
         internal override Expression CreateExpression(ParameterExpression sourceData, ParameterExpression param)
         {
-            MethodInfo match = typeof(LikeNode).GetMethod("IsRegexMatch");
-            
+            MethodInfo matchMethod = typeof(LikeNode).GetMethod("IsRegexMatch", new Type[] { typeof(string), typeof(Regex) });
+
             string like = GetTerminalText("StringLiteral").Trim('\'');
-            string regex = ConvertLikeToRegex(like);
+            var regex = new Regex(ConvertLikeToRegex(like), RegexOptions.IgnoreCase);
 
-            Expression pattern = Expression.Constant(regex);
+            Expression match = Expression.Constant(regex);
 
-            return Expression.Call(match, CreateChildExpression(sourceData, param, 0), pattern);
-        }        
+            return Expression.Call(matchMethod, CreateChildExpression(sourceData, param, 0), match);
+        }
 
-        public static bool IsRegexMatch(string input, string regex)
+        public static bool IsRegexMatch(string input, Regex regex)
+        {
+            if (input == null)
+                return false;
+
+            return regex.IsMatch(input);
+        }
+
+        internal static bool IsRegexMatch(string input, string regex)
         {
             if (input == null)
                 return false;
@@ -38,7 +47,7 @@ namespace SqlLinq.SyntaxTree.Expressions.Predicates.Comparison
             StringBuilder builder = new StringBuilder();
             builder.Append("^");
             builder.Append(Regex.Escape(pattern));
-            builder.Append("$");                
+            builder.Append("$");
 
             /* Replace the SQL LIKE wildcard metacharacters with the
             * equivalent regular expression metacharacters. */
@@ -50,6 +59,9 @@ namespace SqlLinq.SyntaxTree.Expressions.Predicates.Comparison
             * statement ([...] and [^...]). Those metacharacters have
             * to be manually unescaped here. */
             builder.Replace(@"\[", "[").Replace(@"\]", "]").Replace(@"\^", "^");
+
+            // put like syntax wildcard literals back
+            builder.Replace("[.*?]", "[%]").Replace("[.]", "[_]");
 
             return builder.ToString();
         }
