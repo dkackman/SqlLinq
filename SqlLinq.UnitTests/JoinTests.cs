@@ -211,11 +211,28 @@ namespace SqlLinq.UnitTests
             IEnumerable<Person> source = TestData.GetPeople();
             IEnumerable<Family> families = TestData.GetFamilies();
             var answer = from p in source
-                    join f in families on p.Address equals f.Address
-                    where p.Address == "401 Main St., St. Paul, MN 55132"
-                    select new FamilyMember { Name = p.Name, LastName = f.Name, Location = f.Address };
+                         join f in families on p.Address equals f.Address
+                         where p.Address == "401 Main St., St. Paul, MN 55132"
+                         select new FamilyMember { Name = p.Name, LastName = f.Name, Location = f.Address };
 
             var result = source.Query<Person, Family, FamilyMember>("SELECT this.Name, that.Name AS LastName, Address AS Location FROM this INNER JOIN that ON this.Address = that.Address WHERE this.Address = '401 Main St., St. Paul, MN 55132'", families);
+
+            Assert.IsTrue(result.Any());
+            Assert.IsTrue(answer.Any());
+            Assert.IsTrue(result.SequenceEqual(answer));
+        }
+
+        [TestMethod]
+        public void JoinWithLikeWhere()
+        {
+            IEnumerable<Person> source = TestData.GetPeople();
+            IEnumerable<Family> families = TestData.GetFamilies();
+            var answer = from p in source
+                         join f in families on p.Address equals f.Address
+                         where p.Address.StartsWith("401")
+                         select new FamilyMember { Name = p.Name, LastName = f.Name, Location = f.Address };
+
+            var result = source.Query<Person, Family, FamilyMember>("SELECT this.Name, that.Name AS LastName, Address AS Location FROM this INNER JOIN that ON this.Address = that.Address WHERE this.Address LIKE '401%'", families);
 
             Assert.IsTrue(result.Any());
             Assert.IsTrue(answer.Any());

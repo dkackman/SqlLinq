@@ -15,7 +15,7 @@ namespace SqlLinq.SyntaxTree.Expressions.Predicates.Comparison
 
         internal override Expression CreateExpression(ParameterExpression sourceData, ParameterExpression param)
         {
-            MethodInfo matchMethod = typeof(LikeNode).GetMethod("IsRegexMatch", new Type[] { typeof(string), typeof(Regex) });
+            MethodInfo matchMethod = typeof(LikeNode).GetMethod("IsRegexMatch", new Type[] { typeof(object), typeof(Regex) });
 
             string like = GetTerminalText("StringLiteral").Trim('\'');
             var regex = new Regex(ConvertLikeToRegex(like), RegexOptions.IgnoreCase);
@@ -25,12 +25,12 @@ namespace SqlLinq.SyntaxTree.Expressions.Predicates.Comparison
             return Expression.Call(matchMethod, CreateChildExpression(sourceData, param, 0), match);
         }
 
-        public static bool IsRegexMatch(string input, Regex regex)
+        public static bool IsRegexMatch(object input, Regex regex)
         {
             if (input == null)
                 return false;
 
-            return regex.IsMatch(input);
+            return regex.IsMatch(input.ToString());
         }
 
         internal static bool IsRegexMatch(string input, string regex)
