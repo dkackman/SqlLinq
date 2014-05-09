@@ -186,7 +186,10 @@ namespace SqlLinq
             if (type == typeof(byte) || other == typeof(byte))
                 return typeof(byte);
 
-            return null;
+            if (type == typeof(bool) || other == typeof(bool))
+                return typeof(bool);
+
+            return typeof(object);
         }
 
         public static Type Widest(this Type type, Type other, Type third)
