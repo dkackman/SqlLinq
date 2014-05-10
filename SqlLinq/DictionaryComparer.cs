@@ -21,21 +21,27 @@ namespace SqlLinq
             if (x.Count != y.Count)
                 return false;
 
-            // check keys are the same
-            foreach (TKey k in x.Keys)
-                if (!y.ContainsKey(k))
-                    return false;
-
             // check values are the same
             foreach (TKey k in x.Keys)
             {
-                TValue v = x[k];
-                if (object.ReferenceEquals(v, null))
-                    return object.ReferenceEquals(y[k], null);
-
-                if (!v.Equals(y[k]))
+                // check keys are the same
+                if (!y.ContainsKey(k))
                     return false;
+
+                TValue vx = x[k];
+                TValue vy = y[k];
+
+                if (object.ReferenceEquals(vx, null))
+                {
+                    if (!object.ReferenceEquals(vy, null))
+                        return false;
+                }
+                else if (!vx.Equals(vy))
+                {
+                    return false;
+                }
             }
+
             return true;
         }
 
