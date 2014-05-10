@@ -67,18 +67,13 @@ namespace SqlLinq
 
         public static bool HasPropertyOrField(this Type type, string name)
         {
-            MemberInfo member = type.GetProperty(name, BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
-            return (member ?? type.GetField(name, BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase)) != null;
+            return type.GetPropertyOrField(name) != null;
         }
 
         public static MemberInfo GetPropertyOrField(this Type type, string name)
         {
             MemberInfo member = type.GetProperty(name, BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
-            if (member == null)
-                member = type.GetField(name, BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
-
-            Debug.Assert(member != null);
-            return member;
+            return (member ?? type.GetField(name, BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase));
         }
 
         public static Type GetPropertyOrFieldType(this Type type, string name)
