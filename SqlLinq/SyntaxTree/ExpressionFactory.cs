@@ -12,8 +12,6 @@ namespace SqlLinq
     {
         public static Expression<Func<TSource, TResult>> CreateIdentitySelector<TSource, TResult>()
         {
-            Debug.Assert(typeof(TSource) == typeof(TResult));
-
             ParameterExpression item = Expression.Parameter(typeof(TSource), "item");
 
             return Expression.Lambda<Func<TSource, TResult>>(item, item);

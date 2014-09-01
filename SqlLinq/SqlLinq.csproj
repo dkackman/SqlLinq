@@ -99,9 +99,9 @@
     <Reference Include="Kackman.RuntimeTypeLoader">
       <HintPath>..\Kackman.RuntimeTypeLoader.dll</HintPath>
     </Reference>
-    <Reference Include="LinqStatistics, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="LinqStatistics, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\LinqStatistics.1.0.3\lib\net40\LinqStatistics.dll</HintPath>
+      <HintPath>..\packages\LinqStatistics.1.1.0\lib\net40\LinqStatistics.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
