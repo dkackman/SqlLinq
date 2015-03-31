@@ -97,8 +97,46 @@ namespace SqlLinq.UnitTests
                 }
             }
 
+            // all this casting is just to get the answer and result into the same storage types for comparison
             var result = customers.Cast<IDictionary<string, object>>().Query<IDictionary<string, object>, dynamic>("SELECT City, Name FROM this").Cast<IDictionary<string, object>>();
             var answer = customers.Select<dynamic, dynamic>(d => { dynamic o = new ExpandoObject(); o.City = d.City; o.Name = d.Name; return o; }).Cast<IDictionary<string, object>>();
+
+            Assert.IsTrue(result.Any());
+            Assert.IsTrue(answer.SequenceEqual(result, new DictionaryComparer<string, object>()));
+        }
+
+        [TestMethod]
+        public void SumOnExpando()
+        {
+            var customers = new List<dynamic>();
+            for (int i = 0; i < 10; ++i)
+            {
+                string iter = i.ToString();
+                for (int j = 0; j < 3; ++j)
+                {
+                    dynamic customer = new ExpandoObject();
+                    customer.City = "Chicago" + iter;
+                    customer.Id = i;
+                    customer.Name = "Name" + iter;
+                    customer.CompanyName = "Company" + iter + j.ToString();
+
+                    customers.Add(customer);
+                }
+            }
+
+            // all this casting is just to get the answer and result into the same storage types for comparison
+            var answer = (from c in customers
+                          group c by c.City into g
+                          select new
+                          {
+                              City = g.Key,
+                              Sum = g.Sum(c => c.Id)
+                          }).Select<dynamic, dynamic>(d => { dynamic o = new ExpandoObject(); o.City = d.City; o.Sum = d.Sum; return o; }).Cast<IDictionary<string, object>>();
+
+
+
+            var result = customers.Cast<IDictionary<string, object>>().Query<IDictionary<string, object>, dynamic>("SELECT City, sum(Id) FROM this group by City").Cast<IDictionary<string, object>>();
+
 
             Assert.IsTrue(result.Any());
             Assert.IsTrue(answer.SequenceEqual(result, new DictionaryComparer<string, object>()));
