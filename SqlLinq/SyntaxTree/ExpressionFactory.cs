@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Dynamic;
+using System.Runtime.CompilerServices;
 
 namespace SqlLinq
 {
@@ -112,10 +113,20 @@ namespace SqlLinq
 
         public static Expression CreateFieldSelector(ParameterExpression item, string propertyName)
         {
+            // source type is dynamic
+            if (item.Type == typeof(object))
+            {
+                return Expression.Dynamic(new DynamicGetMemberBinder(propertyName), item.Type, item);
+            }
+
+            // source type is dictionary
             MethodInfo indexerMethod = item.Type.GetMethod("get_Item", new Type[] { typeof(string) });
             if (indexerMethod != null)
+            {
                 return Expression.Call(item, indexerMethod, Expression.Constant(propertyName));
+            }            
 
+            // source type is a class or stuct
             return Expression.PropertyOrField(item, propertyName);
         }
 

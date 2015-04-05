@@ -63,7 +63,7 @@ namespace SqlLinq.UnitTests
             IEnumerable<Person> source = TestData.GetPeople();
             var result = source.Query<Person, Tuple<string, string>>("SELECT name, address FROM this");
 
-            var answer = from p in source select new Tuple<string, string>(p.Name,  p.Address );
+            var answer = from p in source select new Tuple<string, string>(p.Name, p.Address);
 
             Assert.IsTrue(result.SequenceEqual(answer));
         }
@@ -78,6 +78,7 @@ namespace SqlLinq.UnitTests
 
             Assert.IsTrue(result.SequenceEqual(answer));
         }
+
         [TestMethod]
         public void ExpandoAsSource()
         {
@@ -106,6 +107,43 @@ namespace SqlLinq.UnitTests
         }
 
         [TestMethod]
+        public void ExpandoAsSourceWithoutDictionaryCast()
+        {
+            var customers = new List<dynamic>();
+            for (int i = 0; i < 10; ++i)
+            {
+                string iter = i.ToString();
+                for (int j = 0; j < 3; ++j)
+                {
+                    dynamic customer = new ExpandoObject();
+                    customer.City = "Chicago" + iter;
+                    customer.Id = i;
+                    customer.Name = "Name" + iter;
+                    customer.CompanyName = "Company" + iter + j.ToString();
+
+                    customers.Add(customer);
+                }
+            }
+
+            // all this casting is just to get the answer and result into the same storage types for comparison
+            var result = customers.Query<dynamic, dynamic>("SELECT City, Name FROM this");
+            var answer = customers.Select<dynamic, dynamic>(d => { dynamic o = new ExpandoObject(); o.City = d.City; o.Name = d.Name; return o; });
+
+            Assert.IsTrue(result.Any());
+            Assert.AreEqual(answer.Count(), result.Count());
+
+            // can't fiqure out how to get SequenceEqual to compile - brute force
+            var comparer = new ExpandoComparer();
+            int x = 0;
+            foreach (var a in answer)
+            {
+                var r = result.Skip(x).First();
+                Assert.IsTrue(comparer.Equals(a, r));
+                x++;
+            }
+        }
+
+        [TestMethod]
         public void SumOnExpando()
         {
             var customers = new List<dynamic>();
@@ -125,8 +163,8 @@ namespace SqlLinq.UnitTests
             }
 
             var answer = from c in customers
-                          group c by c.City into g
-                          select new Tuple<string, int>(g.Key,g.Sum(c => c.Id));
+                         group c by c.City into g
+                         select new Tuple<string, int>(g.Key, g.Sum(c => c.Id));
 
             var result = customers.Cast<IDictionary<string, object>>().Query<IDictionary<string, object>, Tuple<string, int>>("SELECT City, sum(Id) FROM this group by City");
 
