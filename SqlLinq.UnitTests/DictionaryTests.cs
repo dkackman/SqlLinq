@@ -32,15 +32,21 @@ namespace SqlLinq.UnitTests
         {
             List<IDictionary<string, int>> data = new List<IDictionary<string, int>>();
             Dictionary<string, int> row = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
-            row.Add("a", 1);
-            row.Add("b", 2);
-            row.Add("c", 2);
+            row.Add("id", 1);
+            row.Add("value", 2);
+            row.Add("value1", 2);
             data.Add(row);
 
             row = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
-            row.Add("a", 3);
-            row.Add("b", 4);
-            row.Add("c", 4);
+            row.Add("id", 1);
+            row.Add("value", 3);
+            row.Add("value1", 3);
+            data.Add(row);
+
+            row = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+            row.Add("id", 2);
+            row.Add("value", 4);
+            row.Add("value1", 4);
             data.Add(row);
 
             return data;
@@ -88,9 +94,36 @@ namespace SqlLinq.UnitTests
             var data = GetTypedData();
 
             var answer = from row in data
-                         select (int)row["a"];
+                         select (int)row["id"];
 
-            var result = data.Query<IDictionary<string, int>, int>("SELECT a FROM this");
+            var result = data.Query<IDictionary<string, int>, int>("SELECT id FROM this");
+
+            Assert.IsTrue(answer.SequenceEqual(result));
+        }
+
+        [TestMethod]
+        public void SelectScalarSumOnDictionary()
+        {
+            var data = GetTypedData();
+
+            var answer = (from row in data
+                          select row["value"]).Sum();
+
+            var result = data.QueryScalar<IDictionary<string, int>, int>("SELECT sum(value) FROM this");
+
+            Assert.AreEqual(answer, result);
+        }
+
+        [TestMethod]
+        public void SelectGroupOnDictionary()
+        {
+            var data = GetTypedData();
+
+            var answer = from row in data
+                         group row by row["id"] into g
+                         select new Tuple<int, int>(g.Key, g.Sum(r => r["value"]));
+
+            var result = data.Query<IDictionary<string, int>, Tuple<int, int>>("SELECT id, sum(value) FROM this group by id");
 
             Assert.IsTrue(answer.SequenceEqual(result));
         }
@@ -101,10 +134,10 @@ namespace SqlLinq.UnitTests
             var data = GetTypedData();
 
             var answer = from row in data
-                         where row["b"] == 4
-                         select row["a"];
+                         where row["id"] == 4
+                         select row["value"];
 
-            var result = data.Query<IDictionary<string, int>, int>("SELECT a FROM this WHERE b = 4");
+            var result = data.Query<IDictionary<string, int>, int>("SELECT value FROM this WHERE id = 4");
 
             Assert.IsTrue(answer.SequenceEqual(result));
         }
@@ -148,11 +181,11 @@ namespace SqlLinq.UnitTests
             var answer = from row in data
                          select new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)
                             {
-                                {"a", row["a"]},
-                                {"c", row["c"]}
+                                {"id", row["id"]},
+                                {"value1", row["value1"]}
                             };
 
-            var result = data.Query<IDictionary<string, int>, Dictionary<string, int>>("SELECT a, c FROM this");
+            var result = data.Query<IDictionary<string, int>, Dictionary<string, int>>("SELECT id, value1 FROM this");
 
             Assert.IsTrue(answer.SequenceEqual(result, new DictionaryComparer<string, int>()));
         }
@@ -176,9 +209,9 @@ namespace SqlLinq.UnitTests
             var data = GetTypedData();
 
             IEnumerable<int> answer = (from row in data
-                                       select row["b"]).Distinct();
+                                       select row["value"]).Distinct();
 
-            var result = data.Query<IDictionary<string, int>, int>("SELECT DISTINCT b FROM this");
+            var result = data.Query<IDictionary<string, int>, int>("SELECT DISTINCT value FROM this");
 
             Assert.IsTrue(answer.SequenceEqual(result));
         }
