@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Dynamic;
+using System.Reflection;
 
 namespace SqlLinq
 {
     class DynamicGetMemberBinder : GetMemberBinder
     {
+        private readonly static PropertyInfo _indexer = typeof(IDictionary<string, object>).GetProperty("Item");
+
         public DynamicGetMemberBinder(string name)
             : base(name, true)
         {
@@ -19,13 +21,10 @@ namespace SqlLinq
             var d = target.Value as IDictionary<string, object>;
             if (d == null)
             {
-                throw new ArgumentNullException(this.Name);
+                throw new InvalidOperationException("Target object is not an ExpandoObject");
             }
 
-            MethodInfo indexerMethod = typeof(IDictionary<string, object>).GetMethod("get_Item", new Type[] { typeof(string) });
-            var call = Expression.Call(Expression.Constant(d), indexerMethod, Expression.Constant(this.Name));
-
-            return DynamicMetaObject.Create(d, call);
+            return DynamicMetaObject.Create(d, Expression.MakeIndex(Expression.Constant(d), _indexer, new Expression[] { Expression.Constant(this.Name) }));
         }
     }
 }

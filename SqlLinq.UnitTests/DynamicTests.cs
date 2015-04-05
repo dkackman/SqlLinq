@@ -166,7 +166,7 @@ namespace SqlLinq.UnitTests
                          group c by c.City into g
                          select new Tuple<string, int>(g.Key, g.Sum(c => c.Id));
 
-            var result = customers.Cast<IDictionary<string, object>>().Query<IDictionary<string, object>, Tuple<string, int>>("SELECT City, sum(Id) FROM this group by City");
+            var result = customers.Query<dynamic, Tuple<string, int>>("SELECT City, sum(Id) FROM this group by City");
 
             Assert.IsTrue(result.Any());
             Assert.IsTrue(answer.SequenceEqual(result));
