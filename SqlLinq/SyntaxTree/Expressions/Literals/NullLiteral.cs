@@ -13,7 +13,12 @@ namespace SqlLinq.SyntaxTree.Expressions.Literals
 
         internal override MethodInfo GetCoercionMethod(Type from)
         {
-            return new Func<object, object>(o => o).Method;
+            return new Func<object, object>(Identity).Method;
+        }
+
+        private static object Identity(object o)
+        {
+            return o;
         }
     }
 }

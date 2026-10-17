@@ -14,7 +14,7 @@ namespace SqlLinq.SyntaxTree.Expressions.Literals
         internal override MethodInfo GetCoercionMethod(Type from)
         {
             if (from == typeof(string))
-                return new Func<string, DateTime>(s => DateTime.Parse(s)).Method;
+                return new Func<string, DateTime>(DateTime.Parse).Method;
             
             return new Func<object, DateTime>(o => DateTime.Parse(o.ToString())).Method;
         }
