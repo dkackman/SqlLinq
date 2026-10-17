@@ -45,6 +45,20 @@ namespace SqlLinq.UnitTests
             Assert.IsTrue(result.Any());
             Assert.IsTrue(answer.SequenceEqual(result));
         }
+
+        [TestMethod]
+        public void SelectFieldOfStruct()
+        {
+            // Arrange
+            var source = TestData.GetPeople().Select(p => ValueTuple.Create(p.Name, p.Weight));
+
+            // Act
+            var result = source.Query<ValueTuple<string, int>, string>("SELECT Item1 FROM this WHERE Item2 > 150");
+
+            // Assert
+            Assert.IsTrue(result.Any());
+            Assert.IsTrue(result.SequenceEqual(source.Where(t => t.Item2 > 150).Select(t => t.Item1)));
+        }
     }
 }
 

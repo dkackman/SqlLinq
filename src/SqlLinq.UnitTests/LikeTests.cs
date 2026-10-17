@@ -37,5 +37,19 @@ namespace SqlLinq.UnitTests
 
             Assert.IsTrue(result.SequenceEqual(answer));
         }
+
+        [TestMethod]
+        public void NotLikeStartsWith()
+        {
+            // Arrange
+            var source = TestData.GetPeople();
+            var answer = source.Where(p => !p.Name.StartsWith("j", StringComparison.OrdinalIgnoreCase));
+
+            // Act
+            var result = source.Query<Person>("SELECT * FROM this WHERE Name NOT LIKE 'j%'");
+
+            // Assert
+            Assert.IsTrue(result.SequenceEqual(answer));
+        }
     }
 }

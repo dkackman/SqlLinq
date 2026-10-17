@@ -144,5 +144,25 @@ namespace SqlLinq.UnitTests
 
             Assert.IsTrue(answer.SequenceEqual(result, new DictionaryComparer<string, object>()));
         }
+
+        [TestMethod]
+        public void GroupByWithWhere()
+        {
+            // Arrange
+            var source = TestData.GetPeople();
+            var answer =
+                from p in source
+                where p.Weight > 150
+                group p by p.Address into g
+                select new Tuple<string, int>(g.Key, g.Count());
+
+            // Act
+            var result = source.Query<Person, Tuple<string, int>>("SELECT Address, COUNT(*) FROM this WHERE Weight > 150 GROUP BY Address");
+
+            // Assert
+            Assert.IsTrue(result.Any());
+            Assert.IsTrue(answer.Any());
+            Assert.IsTrue(result.SequenceEqual(answer));
+        }
     }
 }

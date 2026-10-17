@@ -215,5 +215,41 @@ namespace SqlLinq.UnitTests
 
             Assert.IsTrue(answer.SequenceEqual(result));
         }
+
+        [TestMethod]
+        public void SelectBracketedFieldWithSpaceFromDictionary()
+        {
+            // Arrange
+            var data = new List<IDictionary<string, object>>()
+            {
+                new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase)
+                {
+                    {"first name", "Ed"},
+                    {"last name", "Mercer"}
+                },
+                new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase)
+                {
+                    {"first name", "Marcus"},
+                    {"last name", "Finn"}
+                },
+                new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase)
+                {
+                    {"first name", "Claire"},
+                    {"last name", "Finn"}
+                }
+            };
+
+            var answer =
+                from row in data
+                where (string)row["last name"] == "Finn"
+                orderby (string)row["first name"]
+                select (string)row["first name"];
+
+            // Act
+            var result = data.Query<IDictionary<string, object>, string>("SELECT [first name] FROM this WHERE [last name] = 'Finn' ORDER BY [first name]");
+
+            // Assert
+            Assert.IsTrue(answer.SequenceEqual(result));
+        }
     }
 }

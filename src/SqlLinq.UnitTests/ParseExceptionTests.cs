@@ -81,5 +81,15 @@ namespace SqlLinq.UnitTests
             IEnumerable<Person> source = TestData.GetPeople();
             Assert.ThrowsExactly<SqlException>(() => source.Query<Person, IDictionary<string, object>>("SELECT Name1, Name2, Name3, Name4, Name5, Name6, Name7, Name8, Name9, Avg(age) as A FROM this GROUP BY Name1, Name2, Name3, Name4, Name5, Name6, Name7, Name8, Name9"));
         }
+
+        [TestMethod]
+        public void SyntaxErrorGeneratesException()
+        {
+            // Arrange
+            var source = TestData.GetPeople();
+
+            // Act & Assert
+            Assert.ThrowsExactly<SqlException>(() => source.Query<Person, IDictionary<string, object>>("SELECT FROM this"));
+        }
     }
 }

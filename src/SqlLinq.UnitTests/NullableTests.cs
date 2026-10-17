@@ -44,5 +44,18 @@ namespace SqlLinq.UnitTests
 
             Assert.IsTrue(result.SequenceEqual(source.Where(i => i.NullableInt == 0 || i.NullableInt == 4)));
         }
+
+        [TestMethod]
+        public void WhereNullableIntIsNull()
+        {
+            // Arrange
+            var source = TestData.GetNullables();
+
+            // Act
+            var result = source.Query<NullableProperty>("SELECT * FROM this WHERE NullableInt IS NULL");
+
+            // Assert
+            Assert.IsTrue(result.SequenceEqual(source.Where(i => i.NullableInt == null)));
+        }
     }
 }

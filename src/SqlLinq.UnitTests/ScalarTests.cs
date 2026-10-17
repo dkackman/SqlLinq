@@ -173,5 +173,44 @@ namespace SqlLinq.UnitTests
 
             Assert.IsTrue(result == source.Where(i => i > 3).Count());
         }
+
+        [TestMethod]
+        public void Max()
+        {
+            // Arrange
+            var source = TestData.GetInts();
+
+            // Act
+            var result = source.QueryScalar<int>("SELECT max(value()) FROM this");
+
+            // Assert
+            Assert.IsTrue(result == source.Max());
+        }
+
+        [TestMethod]
+        public void MinProperty()
+        {
+            // Arrange
+            var source = TestData.GetPeople();
+
+            // Act
+            var result = source.QueryScalar<Person, int>("SELECT min(weight) FROM this");
+
+            // Assert
+            Assert.IsTrue(result == source.Min(p => p.Weight));
+        }
+
+        [TestMethod]
+        public void CountEmptySource()
+        {
+            // Arrange
+            var source = Enumerable.Empty<int>();
+
+            // Act
+            var result = source.QueryScalar<int>("SELECT count(*) FROM this");
+
+            // Assert
+            Assert.IsTrue(result == 0);
+        }
     }
 }

@@ -64,5 +64,25 @@ namespace SqlLinq.UnitTests
             Assert.IsTrue(result.Any());
             Assert.IsTrue(answer.SequenceEqual(result, new DictionaryComparer<string, object>()));
         }
+
+        [TestMethod]
+        public void DistinctIntoDictionary()
+        {
+            // Arrange
+            var source = TestData.GetPeople();
+            var answer = (
+                from p in source
+                select new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase)
+                {
+                    {"name", p.Name},
+                    {"address", p.Address}
+                }).Distinct(new DictionaryComparer<string, object>());
+
+            // Act
+            var result = source.Query<Person, IDictionary<string, object>>("SELECT DISTINCT name, address FROM this");
+
+            // Assert
+            Assert.IsTrue(answer.SequenceEqual(result, new DictionaryComparer<string, object>()));
+        }
     }
 }

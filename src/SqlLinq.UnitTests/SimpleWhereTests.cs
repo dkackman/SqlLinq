@@ -83,5 +83,44 @@ namespace SqlLinq.UnitTests
 
             Assert.IsTrue(result == source.Where(p => p.Name == "Frank").Select<Person, int>(p => p.Age).First());
         }
+
+        [TestMethod]
+        public void WherePropertyLessThan()
+        {
+            // Arrange
+            var source = TestData.GetPeople();
+
+            // Act
+            var result = source.Query<Person>("SELECT * FROM this WHERE weight < 120");
+
+            // Assert
+            Assert.IsTrue(result.SequenceEqual(source.Where(p => p.Weight < 120)));
+        }
+
+        [TestMethod]
+        public void WherePropertyLessThanOrEqual()
+        {
+            // Arrange
+            var source = TestData.GetPeople();
+
+            // Act
+            var result = source.Query<Person>("SELECT * FROM this WHERE weight <= 120");
+
+            // Assert
+            Assert.IsTrue(result.SequenceEqual(source.Where(p => p.Weight <= 120)));
+        }
+
+        [TestMethod]
+        public void WherePropertyBetween()
+        {
+            // Arrange
+            var source = TestData.GetPeople();
+
+            // Act
+            var result = source.Query<Person>("SELECT * FROM this WHERE weight BETWEEN 120 AND 170");
+
+            // Assert
+            Assert.IsTrue(result.SequenceEqual(source.Where(p => p.Weight >= 120 && p.Weight <= 170)));
+        }
     }
 }

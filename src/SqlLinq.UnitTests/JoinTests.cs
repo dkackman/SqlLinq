@@ -320,5 +320,16 @@ namespace SqlLinq.UnitTests
             Assert.IsTrue(answer.Any());
             Assert.IsTrue(result.SequenceEqual(answer));
         }
+
+        [TestMethod]
+        public void JoinQueryWithoutJoin()
+        {
+            // Arrange
+            var source = TestData.GetPeople();
+            var families = TestData.GetFamilies();
+
+            // Act & Assert
+            Assert.ThrowsExactly<SqlException>(() => source.Query<Person, Family, FamilyMember>("SELECT Name FROM this", families));
+        }
     }
 }

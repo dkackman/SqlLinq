@@ -89,5 +89,27 @@ namespace SqlLinq.UnitTests
             Assert.IsTrue(LikeNode.IsRegexMatch("b_n", regex));
             Assert.IsFalse(LikeNode.IsRegexMatch("bin", regex));
         }
+
+        [TestMethod]
+        public void RegexNegatedCharacterSet()
+        {
+            // Act
+            var regex = LikeNode.ConvertLikeToRegex("Mocl[^u]n");
+
+            // Assert
+            Assert.IsTrue(LikeNode.IsRegexMatch("Moclan", regex));
+            Assert.IsFalse(LikeNode.IsRegexMatch("Moclun", regex));
+        }
+
+        [TestMethod]
+        public void RegexMetacharactersAreLiteral()
+        {
+            // Act
+            var regex = LikeNode.ConvertLikeToRegex("Cmdr. Grayson+");
+
+            // Assert
+            Assert.IsTrue(LikeNode.IsRegexMatch("Cmdr. Grayson+", regex));
+            Assert.IsFalse(LikeNode.IsRegexMatch("Cmdrs Graysonn", regex));
+        }
     }
 }

@@ -50,5 +50,19 @@ namespace SqlLinq.UnitTests
             IEnumerable<Person> result = source.Query<Person>("SELECT * FROM this ORDER BY age DESC");
             Assert.IsTrue(result.SequenceEqual(source.OrderByDescending(p => p.Age)));
         }
+
+        [TestMethod]
+        public void OrderByPropertyAscendingThenDescending()
+        {
+            // Arrange
+            var source = TestData.GetPeople();
+            var answer = source.OrderBy(p => p.Weight).ThenByDescending(p => p.Name);
+
+            // Act
+            var result = source.Query<Person>("SELECT * FROM this ORDER BY weight ASC, name DESC");
+
+            // Assert
+            Assert.IsTrue(result.SequenceEqual(answer));
+        }
     }
 }

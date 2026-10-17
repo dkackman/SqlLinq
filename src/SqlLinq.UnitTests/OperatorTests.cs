@@ -116,5 +116,20 @@ namespace SqlLinq.UnitTests
             foreach (int i in result)
                 Assert.IsTrue(i != 2 && i != 3);
         }
+
+        [TestMethod]
+        public void AndHasPrecedenceOverOr()
+        {
+            // Arrange
+            var source = TestData.GetInts();
+            var answer = source.Where(i => i == 120 || (i > 4 && i < 100));
+
+            // Act
+            var result = source.Query<int>("SELECT * FROM this WHERE value() = 120 OR value() > 4 AND value() < 100");
+
+            // Assert
+            Assert.IsTrue(result.Any());
+            Assert.IsTrue(answer.SequenceEqual(result));
+        }
     }
 }
