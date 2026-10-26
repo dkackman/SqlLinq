@@ -3,12 +3,8 @@
 namespace SqlLinq.SyntaxTree.Expressions.Arithmetic
 {
     [SyntaxNode(RuleConstants.RULE_ADDEXP_MINUS)]
-    public class MinusNode : BinaryExpressionNode
+    public class MinusNode : ArithmeticExpressionNode
     {
-        public MinusNode()
-        {
-        }
-
         protected override Expression CreateChildExpression(Expression left, Expression right)
         {
             return Expression.SubtractChecked(left, right);

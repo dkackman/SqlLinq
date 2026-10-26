@@ -3,7 +3,7 @@
 namespace SqlLinq.SyntaxTree.Expressions.Arithmetic
 {
     [SyntaxNode(RuleConstants.RULE_MULTEXP_TIMES)]
-    public class MultiplyNode : BinaryExpressionNode
+    public class MultiplyNode : ArithmeticExpressionNode
     {
         public MultiplyNode()
         {

@@ -2,6 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
+using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SqlLinq.UnitTests
@@ -181,6 +182,32 @@ namespace SqlLinq.UnitTests
 
             Assert.IsTrue(result.Any());
             Assert.IsTrue(result.SequenceEqual(answer));
+        }
+
+        [TestMethod]
+        public void RealLiteralIgnoresCurrentCulture()
+        {
+            // Arrange
+            var culture = CultureInfo.CurrentCulture;
+            CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("de-DE");
+            try
+            {
+                var source = TestData.GetDoubleIntData();
+                var answer = from t in source
+                             where t.Item1 > 2.5
+                             select t;
+
+                // Act
+                var result = source.Query<Tuple<double, int>>("SELECT * FROM this WHERE item1 > 2.5");
+
+                // Assert
+                Assert.IsTrue(result.Any());
+                Assert.IsTrue(result.SequenceEqual(answer));
+            }
+            finally
+            {
+                CultureInfo.CurrentCulture = culture;
+            }
         }
     }
 }

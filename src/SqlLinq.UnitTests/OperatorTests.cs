@@ -131,5 +131,35 @@ namespace SqlLinq.UnitTests
             Assert.IsTrue(result.Any());
             Assert.IsTrue(answer.SequenceEqual(result));
         }
+
+        [TestMethod]
+        public void WhereIntInSingleValue()
+        {
+            // Arrange
+            var source = TestData.GetInts();
+            var answer = source.Where(i => i == 6);
+
+            // Act
+            var result = source.Query<int>("SELECT * FROM this WHERE value() IN (6)");
+
+            // Assert
+            Assert.IsTrue(result.Any());
+            Assert.IsTrue(answer.SequenceEqual(result));
+        }
+
+        [TestMethod]
+        public void NotNegatesPredicate()
+        {
+            // Arrange
+            var source = TestData.GetInts();
+            var answer = source.Where(i => !(i > 4));
+
+            // Act
+            var result = source.Query<int>("SELECT * FROM this WHERE NOT value() > 4");
+
+            // Assert
+            Assert.IsTrue(result.Any());
+            Assert.IsTrue(answer.SequenceEqual(result));
+        }
     }
 }

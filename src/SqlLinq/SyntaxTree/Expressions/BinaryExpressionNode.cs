@@ -12,19 +12,26 @@ namespace SqlLinq.SyntaxTree.Expressions
 
         internal override Expression CreateExpression(ParameterExpression sourceData, ParameterExpression param)
         {
-            var left = CreateChildExpression(sourceData, param, 0);
-            var right = CreateChildExpression(sourceData, param, 2);
+            return CreateBinaryExpression(CreateChildExpression(sourceData, param, 0), CreateChildExpression(sourceData, param, 2));
+        }
 
+        protected Expression CreateBinaryExpression(Expression left, Expression right)
+        {
             Type widest = right.Type.Widest(left.Type);
             Debug.Assert(widest != null);
 
             if (right.Type != widest)
-                right = Expression.Convert(right, widest);
+            {
+                right = ExpressionFactory.ConvertTo(right, widest);
+            }
 
             if (left.Type != widest)
-                left = Expression.Convert(left, widest);
+            {
+                left = ExpressionFactory.ConvertTo(left, widest);
+            }
 
             var body = CreateChildExpression(left, right);
+
             return WrapReturnExpression(body);
         }
 

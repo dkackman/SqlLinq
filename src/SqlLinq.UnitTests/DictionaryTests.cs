@@ -251,5 +251,46 @@ namespace SqlLinq.UnitTests
             // Assert
             Assert.IsTrue(answer.SequenceEqual(result));
         }
+
+        [TestMethod]
+        public void WhereBoxedNumberGreaterThanInteger()
+        {
+            // Arrange
+            var data = GetNumberData();
+            var answer = new[] { 2, 4, 5 };
+
+            // Act
+            var result = data.Query<IDictionary<string, object>, int>("SELECT id FROM this WHERE amount > 2");
+
+            // Assert
+            Assert.IsTrue(answer.SequenceEqual(result));
+        }
+
+        [TestMethod]
+        public void WhereBoxedNumberIn()
+        {
+            // Arrange
+            var data = GetNumberData();
+            var answer = new[] { 3, 4 };
+
+            // Act
+            var result = data.Query<IDictionary<string, object>, int>("SELECT id FROM this WHERE amount IN (2, 3)");
+
+            // Assert
+            Assert.IsTrue(answer.SequenceEqual(result));
+        }
+
+        private static List<IDictionary<string, object>> GetNumberData()
+        {
+            return new List<IDictionary<string, object>>()
+            {
+                new Dictionary<string, object>() { { "id", 1 }, { "amount", 1.5 } },
+                new Dictionary<string, object>() { { "id", 2 }, { "amount", 2.5 } },
+                new Dictionary<string, object>() { { "id", 3 }, { "amount", 2 } },
+                new Dictionary<string, object>() { { "id", 4 }, { "amount", 3L } },
+                new Dictionary<string, object>() { { "id", 5 }, { "amount", 2.5m } },
+                new Dictionary<string, object>() { { "id", 6 }, { "amount", null } }
+            };
+        }
     }
 }

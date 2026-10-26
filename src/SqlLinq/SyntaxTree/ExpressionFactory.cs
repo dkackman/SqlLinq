@@ -3,9 +3,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Diagnostics;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Dynamic;
-using System.Runtime.CompilerServices;
+using System.Globalization;
 
 namespace SqlLinq
 {
@@ -13,17 +12,17 @@ namespace SqlLinq
     {
         public static Expression<Func<TSource, TResult>> CreateIdentitySelector<TSource, TResult>()
         {
-            ParameterExpression item = Expression.Parameter(typeof(TSource), "item");
+            var item = Expression.Parameter(typeof(TSource), "item");
 
             return Expression.Lambda<Func<TSource, TResult>>(item, item);
         }
 
         public static Expression<Func<TSource, TResult>> CreateSelectIntoDictionary<TSource, TResult>(IEnumerable<string> sourceFields, IEnumerable<string> resultFields)
         {
-            ParameterExpression item = Expression.Parameter(typeof(TSource), "item");
+            var item = Expression.Parameter(typeof(TSource), "item");
             var bindings = CreateDictionaryBindings<TResult>(item, sourceFields, resultFields);
 
-            ConstructorInfo constructor = typeof(TResult).GetConstructor(new Type[] { typeof(StringComparer) });
+            var constructor = typeof(TResult).GetConstructor(new Type[] { typeof(StringComparer) });
             if (constructor == null)
             {
                 Debug.Assert(typeof(TResult).IsGenericType);
@@ -41,7 +40,7 @@ namespace SqlLinq
 
         public static Expression<Func<TSource, TResult>> CreateSelectIntoExpando<TSource, TResult>(IEnumerable<string> sourceFields, IEnumerable<string> resultFields)
         {
-            ParameterExpression item = Expression.Parameter(typeof(TSource), "item");
+            var item = Expression.Parameter(typeof(TSource), "item");
             var bindings = CreateDictionaryBindings<IDictionary<string, object>>(item, sourceFields, resultFields);
 
             var _new = Expression.New(typeof(ExpandoObject));
@@ -52,40 +51,41 @@ namespace SqlLinq
         {
             // loop through all of the result fields and generate an expression that will 
             // add a new property to the result expando object using its IDictionary interface
-            MethodInfo addMethod = typeof(TResult).GetMethod("Add", typeof(TResult).GetGenericArguments());
+            var addMethod = typeof(TResult).GetMethod("Add", typeof(TResult).GetGenericArguments());
 
-            return from field in
-                       sourceFields.Zip(resultFields, (source, result) => new Tuple<string, string>(source, result))
-                   select
-                       Expression.ElementInit(addMethod,
-                       Expression.Constant(field.Item2),
-                       CreateFieldSelector(item, field.Item1, typeof(TResult).GetDictionaryValueType()));
+            return
+                from field in sourceFields.Zip(resultFields, (source, result) => new Tuple<string, string>(source, result))
+                select Expression.ElementInit(
+                    addMethod,
+                    Expression.Constant(field.Item2),
+                    CreateFieldSelector(item, field.Item1, typeof(TResult).GetDictionaryValueType()));
         }
 
         public static Expression<Func<TSource, TResult>> CreateSelectIntoObjectMembers<TSource, TResult>(IEnumerable<string> sourceFields, IEnumerable<string> resultFields)
         {
             ParameterExpression item = Expression.Parameter(typeof(TSource), "item");
 
-            var bindings = from field in
-                               sourceFields.Zip(resultFields, (source, result) => new Tuple<string, string>(source, result))
-                           select
-                               Expression.Bind(typeof(TResult).GetPropertyOrField(field.Item2), CreateFieldSelector(item, field.Item1, typeof(TResult).GetFieldType(field.Item2)));
+            var bindings =
+                from field in sourceFields.Zip(resultFields, (source, result) => new Tuple<string, string>(source, result))
+                select Expression.Bind(
+                    typeof(TResult).GetPropertyOrField(field.Item2),
+                    CreateFieldSelector(item, field.Item1, typeof(TResult).GetFieldType(field.Item2)));
 
             return Expression.Lambda<Func<TSource, TResult>>(Expression.MemberInit(Expression.New(typeof(TResult)), bindings), item);
         }
 
         public static Expression<Func<TSource, TResult>> CreateSelectIntoObjectConstructor<TSource, TResult>(IEnumerable<string> sourceFields, IEnumerable<Type> resultTypes)
         {
-            ParameterExpression item = Expression.Parameter(typeof(TSource), "item");
-            Expression _new = CreateNewObjectExpression(typeof(TResult), sourceFields, resultTypes, item);
+            var item = Expression.Parameter(typeof(TSource), "item");
+            var _new = CreateNewObjectExpression(typeof(TResult), sourceFields, resultTypes, item);
 
             return Expression.Lambda<Func<TSource, TResult>>(_new, item);
         }
 
         public static LambdaExpression CreateSelectIntoObjectConstructor<TSource>(Type tResult, IEnumerable<string> sourceFields, IEnumerable<Type> resultTypes)
         {
-            ParameterExpression item = Expression.Parameter(typeof(TSource), "item");
-            Expression _new = CreateNewObjectExpression(tResult, sourceFields, resultTypes, item);
+            var item = Expression.Parameter(typeof(TSource), "item");
+            var _new = CreateNewObjectExpression(tResult, sourceFields, resultTypes, item);
 
             return Expression.Lambda(_new, item);
         }
@@ -93,10 +93,9 @@ namespace SqlLinq
         private static NewExpression CreateNewObjectExpression(Type tResult, IEnumerable<string> sourceFields, IEnumerable<Type> resultTypes, ParameterExpression item)
         {
             var zip = sourceFields.Zip(resultTypes, (s, t) => new Tuple<string, Type>(s, t));
-
             var bindings = zip.Select(tuple => CreateFieldSelector(item, tuple.Item1, tuple.Item2));   // the values that will intialize a TResult
 
-            ConstructorInfo constructor = tResult.GetConstructor(resultTypes.ToArray());  // the constructor for a new TResult
+            var constructor = tResult.GetConstructor(resultTypes.ToArray());  // the constructor for a new TResult
             Debug.Assert(constructor != null);
 
             return Expression.New(constructor, bindings);
@@ -106,7 +105,7 @@ namespace SqlLinq
         {
             Debug.Assert(!string.IsNullOrEmpty(propertyName));
 
-            ParameterExpression item = Expression.Parameter(typeof(TSource), "item");
+            var item = Expression.Parameter(typeof(TSource), "item");
 
             return Expression.Lambda<Func<TSource, TResult>>(CreateFieldSelector(item, propertyName, typeof(TResult)), item);
         }
@@ -120,7 +119,7 @@ namespace SqlLinq
             }
 
             // source type is dictionary
-            MethodInfo indexerMethod = item.Type.GetMethod("get_Item", new Type[] { typeof(string) });
+            var indexerMethod = item.Type.GetMethod("get_Item", new Type[] { typeof(string) });
             if (indexerMethod != null)
             {
                 return Expression.Call(item, indexerMethod, Expression.Constant(propertyName));
@@ -132,12 +131,35 @@ namespace SqlLinq
 
         public static Expression CreateFieldSelector(ParameterExpression item, string propertyName, Type returnType)
         {
-            Expression selector = CreateFieldSelector(item, propertyName);
+            var selector = CreateFieldSelector(item, propertyName);
 
             if (selector.Type != returnType)
+            {
                 selector = Expression.Convert(selector, returnType);
+            }
 
             return selector;
+        }
+
+        public static Expression ConvertTo(Expression expression, Type type)
+        {
+            if (expression.Type == typeof(object) && type.IsValueType && Nullable.GetUnderlyingType(type) == null)
+            {
+                return Expression.Convert(Expression.Call(typeof(ExpressionFactory), nameof(ChangeTypeExact), null, expression, Expression.Constant(type)), type);
+            }
+
+            return Expression.Convert(expression, type);
+        }
+
+        private static object ChangeTypeExact(object value, Type type)
+        {
+            var result = Convert.ChangeType(value, type, CultureInfo.InvariantCulture);
+            if (!Convert.ChangeType(result, value.GetType(), CultureInfo.InvariantCulture).Equals(value))
+            {
+                throw new InvalidCastException(string.Format(CultureInfo.CurrentCulture, "{0} cannot be converted to {1} without loss", value, type.Name));
+            }
+
+            return result;
         }
 
         public static LambdaExpression CreateFieldSelectorLambda(Type itemType, string propertyName)

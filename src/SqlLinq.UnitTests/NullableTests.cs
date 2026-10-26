@@ -57,5 +57,19 @@ namespace SqlLinq.UnitTests
             // Assert
             Assert.IsTrue(result.SequenceEqual(source.Where(i => i.NullableInt == null)));
         }
+
+        [TestMethod]
+        public void WherePropertyEqualsNull()
+        {
+            // Arrange
+            var source = TestData.GetPeople();
+
+            // Act
+            var result = source.Query<Person>("SELECT * FROM this WHERE Address = NULL");
+
+            // Assert
+            Assert.IsTrue(result.Any());
+            Assert.IsTrue(result.SequenceEqual(source.Where(p => p.Address == null)));
+        }
     }
 }

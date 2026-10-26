@@ -8,10 +8,6 @@ namespace SqlLinq.SyntaxTree.Expressions.Predicates.Comparison
     [SyntaxNode(RuleConstants.RULE_PREDEXP_IN)]
     public class InNode : ExpressionNode
     {
-        public InNode()
-        {
-        }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         protected Expression CreateInExpression(Expression list, Expression left)
         {
@@ -19,9 +15,12 @@ namespace SqlLinq.SyntaxTree.Expressions.Predicates.Comparison
 
             var listType = list.Type.GetElementType();
             if (left.Type != listType)
-                left = Expression.Convert(left, listType);
+            {
+                left = ExpressionFactory.ConvertTo(left, listType);
+            }
 
             var body = Expression.Call(typeof(Enumerable), "Contains", new Type[] { left.Type }, list, left);
+
             return Expression.TryCatch(body, Expression.Catch(typeof(Exception), Expression.Constant(false)));
         }
 

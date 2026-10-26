@@ -3,12 +3,8 @@
 namespace SqlLinq.SyntaxTree.Expressions.Arithmetic
 {
     [SyntaxNode(RuleConstants.RULE_ADDEXP_PLUS)]
-    public class PlusNode : BinaryExpressionNode
+    public class PlusNode : ArithmeticExpressionNode
     {
-        public PlusNode()
-        {
-        }
-
         protected override Expression CreateChildExpression(Expression left, Expression right)
         {
             return Expression.AddChecked(left, right);

@@ -154,6 +154,9 @@ namespace SqlLinq
             if (type == typeof(object))
                 return typeof(double);
 
+            if (other == typeof(object) && type.IsPrimitive && type != typeof(bool) && type != typeof(char))
+                return typeof(double);
+
             if (!type.IsValueType)
                 return type.WidestNullable(other);
 
