@@ -52,6 +52,18 @@ namespace SqlLinq.Units.UnitTests
         }
 
         [TestMethod]
+        [DataRow("CONVERT")]
+        [DataRow("Convert")]
+        public void ConvertNameIsCaseInsensitive(string name)
+        {
+            // Act
+            var fahrenheit = Max(name + "(CoreTemp, '°F')");
+
+            // Assert
+            Assert.AreEqual(95 * 1.8 + 32, fahrenheit, 1e-9);
+        }
+
+        [TestMethod]
         [DataRow("Temperature.DegreeFahrenheit")]
         [DataRow("DegreeFahrenheit")]
         [DataRow("degreefahrenheit")]

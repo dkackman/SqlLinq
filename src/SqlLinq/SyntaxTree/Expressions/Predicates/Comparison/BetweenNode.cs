@@ -24,13 +24,13 @@ namespace SqlLinq.SyntaxTree.Expressions.Predicates.Comparison
             Debug.Assert(widest != null);
 
             if (expression.Type != widest)
-                expression = Expression.Convert(expression, widest);
+                expression = ExpressionFactory.ConvertTo(expression, widest);
 
             if (start.Type != widest)
-                start = Expression.Convert(start, widest);
+                start = ExpressionFactory.ConvertTo(start, widest);
 
             if (end.Type != widest)
-                end = Expression.Convert(end, widest);
+                end = ExpressionFactory.ConvertTo(end, widest);
 
             Expression gte = Expression.GreaterThanOrEqual(expression, start);
             Expression lte = Expression.LessThanOrEqual(expression, end);

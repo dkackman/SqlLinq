@@ -280,6 +280,34 @@ namespace SqlLinq.UnitTests
             Assert.IsTrue(answer.SequenceEqual(result));
         }
 
+        [TestMethod]
+        public void BetweenMatchesBoxedNumbers()
+        {
+            // Arrange
+            var data = GetNumberData();
+            var answer = new[] { 2, 3, 4, 5 };
+
+            // Act
+            var result = data.Query<IDictionary<string, object>, int>("SELECT id FROM this WHERE amount BETWEEN 2 AND 3");
+
+            // Assert
+            Assert.IsTrue(answer.SequenceEqual(result));
+        }
+
+        [TestMethod]
+        public void NotBetweenMatchesTheNegatedComparisons()
+        {
+            // Arrange
+            var data = GetNumberData();
+            var answer = data.Query<IDictionary<string, object>, int>("SELECT id FROM this WHERE NOT (amount >= 2 AND amount <= 3)");
+
+            // Act
+            var result = data.Query<IDictionary<string, object>, int>("SELECT id FROM this WHERE amount NOT BETWEEN 2 AND 3");
+
+            // Assert
+            Assert.IsTrue(answer.SequenceEqual(result));
+        }
+
         private static List<IDictionary<string, object>> GetNumberData()
         {
             return new List<IDictionary<string, object>>()

@@ -9,7 +9,7 @@ namespace SqlLinq.Units
 {
     public sealed class UnitConversions
     {
-        private static readonly string[] Names = { "convert" };
+        private static readonly HashSet<string> Names = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "convert" };
         private static readonly CultureInfo English = CultureInfo.GetCultureInfo("en-US");
 
         private readonly List<QuantityMetadata> _metadata;

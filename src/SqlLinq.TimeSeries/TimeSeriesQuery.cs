@@ -15,7 +15,7 @@ namespace SqlLinq.TimeSeries
 
         private readonly Func<T, TimeSpan> _time;
         private readonly Func<string, string> _rewrite;
-        private readonly Query<T, T> _where;
+        private readonly Func<T, object> _where;
         private readonly List<(string Text, string Name, Func<T, object> Value)> _facets = new List<(string, string, Func<T, object>)>();
         private readonly List<(string Name, Aggregate<T> Aggregate)> _aggregates = new List<(string, Aggregate<T>)>();
         private readonly List<(string Name, Func<T, object> Value)> _columns = new List<(string, Func<T, object>)>();
@@ -41,7 +41,9 @@ namespace SqlLinq.TimeSeries
             {
                 foreach (var facet in SqlSyntax.SplitTopLevel(facets))
                 {
-                    _facets.Add((facet, FacetExpression.Name(facet), FacetExpression.Compile<T>(facet, _rewrite)));
+                    var alias = Alias.Match(facet);
+                    var text = alias.Success ? alias.Groups[1].Value.Trim() : facet;
+                    _facets.Add((text, FacetExpression.Name(facet), FacetExpression.Compile<T>(facet, _rewrite)));
                 }
             }
 
@@ -55,8 +57,7 @@ namespace SqlLinq.TimeSeries
 
             if (clauses.TryGetValue("WHERE", out var where))
             {
-                _where = new Query<T, T>("SELECT * FROM this WHERE " + _rewrite(where));
-                _where.Compile();
+                _where = Compile(where);
             }
 
             if (clauses.TryGetValue("SINCE", out var since))
@@ -124,9 +125,9 @@ namespace SqlLinq.TimeSeries
                 return result;
             }
 
-            var newest = all.Max(r => r.Time);
-            var from = _since?.Resolve(newest) ?? all.Min(r => r.Time);
-            var to = _until?.Resolve(newest) ?? newest + TimeSpan.FromTicks(1);
+            var end = all.Max(r => r.Time) + TimeSpan.FromTicks(1);
+            var from = _since?.Resolve(end) ?? all.Min(r => r.Time);
+            var to = _until?.Resolve(end) ?? end;
 
             Run(all, from, to, _compare == null ? null : "current", result);
 
@@ -188,7 +189,8 @@ namespace SqlLinq.TimeSeries
             var calls = SqlSyntax.FindCalls(text, AggregateFactory<T>.Names);
             if (calls.Count == 0)
             {
-                if (_facets.Any(f => f.Text.Equals(text, StringComparison.OrdinalIgnoreCase)))
+                var unbracketed = SqlSyntax.Unbracket(text);
+                if (_facets.Any(f => f.Text.Equals(text, StringComparison.OrdinalIgnoreCase) || f.Name.Equals(unbracketed, StringComparison.OrdinalIgnoreCase)))
                 {
                     return;
                 }
@@ -241,7 +243,7 @@ namespace SqlLinq.TimeSeries
             var rows = all.Where(r => r.Time >= from && r.Time < to).ToList();
             if (_where != null)
             {
-                rows = _where.Evaluate(rows.Select(r => r.Item)).Select(item => (Time: _time(item), Item: item)).ToList();
+                rows = rows.Where(r => _where(r.Item) is true).ToList();
             }
 
             if (_aggregates.Count == 0)
@@ -330,7 +332,9 @@ namespace SqlLinq.TimeSeries
 
         private static long Index(TimeSpan time, long ticks)
         {
-            return (long)Math.Floor((double)time.Ticks / ticks);
+            var index = time.Ticks / ticks;
+
+            return time.Ticks % ticks < 0 ? index - 1 : index;
         }
     }
 }

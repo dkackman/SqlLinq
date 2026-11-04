@@ -99,6 +99,27 @@ namespace SqlLinq.TimeSeries.UnitTests
         }
 
         [TestMethod]
+        public void TimeseriesBucketsAreExactForLargeAndNegativeTimes()
+        {
+            // Arrange
+            const string nrql = "SELECT count(*) AS N FROM shipslog TIMESERIES 1 second";
+            var noon = new DateTime(2419, 6, 1, 12, 0, 0);
+            var noonTime = TimeSpan.FromTicks(noon.Ticks);
+            var absolute = new TimeSeriesQuery<DateTime>(nrql, time => TimeSpan.FromTicks(time.Ticks));
+            var ticks = new TimeSeriesQuery<int>(nrql, value => TimeSpan.FromTicks(value));
+
+            // Act
+            var absoluteRows = absolute.Evaluate(new[] { noon.AddTicks(-1), noon });
+            var negativeRows = ticks.Evaluate(new[] { -1, 0 });
+
+            // Assert
+            CollectionAssert.AreEqual(new object[] { 1, 1 }, Column(absoluteRows, "N"));
+            CollectionAssert.AreEqual(new object[] { noonTime - TimeSpan.FromSeconds(1), noonTime }, Column(absoluteRows, "BeginTime"));
+            CollectionAssert.AreEqual(new object[] { 1, 1 }, Column(negativeRows, "N"));
+            CollectionAssert.AreEqual(new object[] { TimeSpan.FromSeconds(-1), TimeSpan.Zero }, Column(negativeRows, "BeginTime"));
+        }
+
+        [TestMethod]
         [DataRow("500 ms", 8)]
         [DataRow("500 milliseconds", 8)]
         [DataRow("1", 4)]
@@ -159,6 +180,23 @@ namespace SqlLinq.TimeSeries.UnitTests
 
             // Assert
             Assert.HasCount(5, rows);
+        }
+
+        [TestMethod]
+        [DataRow("SELECT spin, count(*) AS N FROM shipslog FACET buckets(DriveSpin, 8000, 2) AS spin", "spin")]
+        [DataRow("SELECT [SPIN], count(*) AS N FROM shipslog FACET buckets(DriveSpin, 8000, 2) AS spin", "spin")]
+        [DataRow("SELECT buckets(DriveSpin, 8000, 2) AS spin, count(*) AS N FROM shipslog FACET buckets(DriveSpin, 8000, 2) AS spin", "spin")]
+        [DataRow("SELECT BUCKETS(DriveSpin, 8000, 2), count(*) AS N FROM shipslog FACET buckets(DriveSpin, 8000, 2) AS spin", "spin")]
+        [DataRow("SELECT [DriveStage], count(*) AS N FROM shipslog FACET DriveStage", "DriveStage")]
+        [DataRow("SELECT DriveStage, count(*) AS N FROM shipslog FACET [DriveStage]", "DriveStage")]
+        public void SelectedFacetIsNamedByItsNameOrExpression(string nrql, string facet)
+        {
+            // Act
+            var rows = Run(nrql);
+
+            // Assert
+            Assert.AreEqual(8, rows.Sum(r => (int)r["N"]));
+            Assert.IsTrue(rows.All(r => r.Count == 2 && r.ContainsKey(facet)));
         }
 
         [TestMethod]
@@ -246,8 +284,8 @@ namespace SqlLinq.TimeSeries.UnitTests
             var untilAgoCount = Run("SELECT count(*) AS N FROM shipslog UNTIL 3 seconds ago").Single()["N"];
 
             // Assert
-            Assert.AreEqual(3, sinceAgoCount);
-            Assert.AreEqual(1, untilAgoCount);
+            Assert.AreEqual(2, sinceAgoCount);
+            Assert.AreEqual(2, untilAgoCount);
         }
 
         [TestMethod]
@@ -346,6 +384,7 @@ namespace SqlLinq.TimeSeries.UnitTests
         [DataRow("SELECT count(*) FROM shipslog LIMIT 0", "LIMIT ")]
         [DataRow("SELECT count(*) FROM shipslog TIMESERIES 1 second LIMIT 5", "LIMIT ")]
         [DataRow("SELECT count(*), DriveSpin FROM shipslog", "'DriveSpin' isn't an aggregate")]
+        [DataRow("SELECT count(*), DriveSpin AS DriveStage FROM shipslog FACET DriveStage", "'DriveSpin' isn't an aggregate")]
         [DataRow("SELECT DriveSpin FROM shipslog TIMESERIES 1 second", "FACET and TIMESERIES ")]
         [DataRow("SELECT DriveSpin FROM shipslog FACET DriveStage", "FACET and TIMESERIES ")]
         [DataRow("SELECT percentile(DriveSpin) FROM shipslog", "percentile takes ")]
@@ -360,6 +399,9 @@ namespace SqlLinq.TimeSeries.UnitTests
         [DataRow("SELECT count(*) FROM shipslog GROUP BY DriveStage", "GROUP ")]
         [DataRow("SELECT count(*) FROM shipslog ORDER BY DriveSpin", "ORDER ")]
         [DataRow("SELECT average(Warp) FROM shipslog TIMESERIES 1 second", "SQL compile error:")]
+        [DataRow("SELECT count(*) FROM shipslog WHERE Warp > 1", "SQL compile error:")]
+        [DataRow("SELECT count(*) FROM shipslog WHERE DriveSpin > 99999999999", "SQL compile error:")]
+        [DataRow("SELECT count(*) FROM shipslog WHERE DriveSpin >", "SQL parse error:")]
         [DataRow("SELECT FROM shipslog", "A time series query starts SELECT")]
         public void InvalidQueriesThrowSqlException(string nrql, string message)
         {
@@ -508,6 +550,23 @@ namespace SqlLinq.TimeSeries.UnitTests
         }
 
         [TestMethod]
+        [DataRow("1 second")]
+        [DataRow("5 seconds")]
+        [DataRow("1 minute")]
+        public void RateSinceAgoIsTheArrivalRate(string duration)
+        {
+            // Arrange
+            var query = new TimeSeriesQuery<int>("SELECT rate(count(*), 1 second) AS R FROM shipslog SINCE " + duration + " ago", value => TimeSpan.FromSeconds(value));
+            var source = Enumerable.Range(0, 121);
+
+            // Act
+            var rate = query.Evaluate(source).Single()["R"];
+
+            // Assert
+            Assert.AreEqual(1.0, rate);
+        }
+
+        [TestMethod]
         public void MathInsideAggregates()
         {
             // Act
@@ -569,6 +628,18 @@ namespace SqlLinq.TimeSeries.UnitTests
             Assert.AreEqual(7900, rows[0]["TopSpin"]);
             Assert.AreEqual("previous", rows[1]["Comparison"]);
             Assert.AreEqual(6200, rows[1]["TopSpin"]);
+        }
+
+        [TestMethod]
+        public void CompareWithCountsABoundaryItemOnce()
+        {
+            // Act
+            var rows = Run("SELECT count(*) AS N, min(Id) AS FirstId FROM shipslog SINCE 1 second ago COMPARE WITH 1 second ago");
+
+            // Assert
+            // newest is 3.5 s: current (2.5 s, 3.5 s] holds ids 7 and 8, previous (1.5 s, 2.5 s] holds ids 5 and 6
+            CollectionAssert.AreEqual(new object[] { 2, 2 }, Column(rows, "N"));
+            CollectionAssert.AreEqual(new object[] { 7, 5 }, Column(rows, "FirstId"));
         }
 
         [TestMethod]
