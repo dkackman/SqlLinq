@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using GoldParser;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SqlLinq.UnitTests
@@ -52,6 +54,21 @@ namespace SqlLinq.UnitTests
             // Assert
             Assert.IsTrue(result.Any());
             Assert.IsTrue(result.SequenceEqual(answer));
+        }
+
+        [TestMethod]
+        public void GrammarLoadsEfficiently()
+        {
+            // Arrange
+            using var reader = new BinaryReader(typeof(SqlParser).Assembly.GetManifestResourceStream("SqlLinq.SQL-ANSI-89.4.cgt"));
+            var before = GC.GetAllocatedBytesForCurrentThread();
+
+            // Act
+            _ = new Grammar(reader);
+            var allocated = GC.GetAllocatedBytesForCurrentThread() - before;
+
+            // Assert
+            Assert.IsLessThan(100_000_000, allocated, $"Loading the grammar allocated {allocated / 1_000_000} MB.");
         }
     }
 }

@@ -9,5 +9,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SqlLinq\SqlLinq.csproj" />
+    <ProjectReference Include="..\..\deps\GoldParser\GoldParser.csproj" />
   </ItemGroup>
 </Project>

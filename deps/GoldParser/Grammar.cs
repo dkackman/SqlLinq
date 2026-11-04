@@ -1,3 +1,4 @@
+// Altered for SqlLinq: OptimizeDfaTransitionVectors uses GetValue and SetValue instead of key lookups. See freeware license agreement.txt.
 #region Copyright
 
 //----------------------------------------------------------------------
@@ -537,18 +538,17 @@ namespace GoldParser
 				ObjectMap transitions = state.m_transitionVector;
 				for (int i = transitions.Count; --i >= 0;)
 				{
-					int key = transitions.GetKey(i);
-					object transition = transitions[key];
+					object transition = transitions.GetValue(i);
 					if (transition != null)
 					{
 						int transitionIndex = (int) transition;
 						if (transitionIndex >= 0)
 						{
-							transitions[key] = dfaStates[transitionIndex];
+							transitions.SetValue(i, dfaStates[transitionIndex]);
 						}
 						else
 						{
-							transitions[key] = null;
+							transitions.SetValue(i, null);
 						}
 					}
 				}

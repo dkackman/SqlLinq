@@ -1,3 +1,4 @@
+// Altered for SqlLinq: SortedMapProvider grows by doubling, and GetValue and SetValue access values by index. See freeware license agreement.txt.
 #region Copyright
 
 //----------------------------------------------------------------------
@@ -97,6 +98,16 @@ namespace GoldParser
 		public int GetKey(int index)
 		{
 			return m_mapProvider.GetEntry(index).Key;
+		}
+
+		internal object GetValue(int index)
+		{
+			return m_mapProvider.GetEntry(index).Value;
+		}
+
+		internal void SetValue(int index, object value)
+		{
+			((SortedMapProvider) m_mapProvider).m_entries[index].Value = value;
 		}
 
 		/// <summary>
@@ -250,7 +261,7 @@ namespace GoldParser
 				}
 				if (m_count >= m_entries.Length)
 				{
-					Entry[] entries = new Entry[m_entries.Length + GROWTH];
+					Entry[] entries = new Entry[Math.Max(GROWTH, m_entries.Length * 2)];
 					Array.Copy(m_entries, 0, entries, 0, m_entries.Length);
 					m_entries = entries;
 				}
